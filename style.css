@@ -1,0 +1,342 @@
+/* I put all my animations at the bottom */
+
+/* Basics that all depend on */
+:root {
+    --neon-blue: #00f3ff;
+    --dark-bg: #0a0a0a;
+    --accent-purple: #bd00ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--dark-bg);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Navigation */
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 300;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--neon-blue);
+}
+
+/* Hero Section (fancy stuff for behind my name) */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem;
+    background: linear-gradient(45deg, #000000 0%, #0a0a2b 100%);
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--neon-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeUp 1s ease forwards;
+}
+
+/* Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: cardAppear 0.6s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.1);
+}
+
+.card-image {
+    position: relative;
+    width: 100%;
+    padding-top: 66.66%; /* 2:3 aspect ratio (height = 2/3 of width) */
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+    /* Add this line for bottom padding */
+    margin-bottom: 1rem; /* Adjust this value as needed */
+}
+
+.card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    
+    .nav-links {
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Section Styles */
+.section {
+    padding: 4rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--neon-blue);
+    text-transform: uppercase;
+}
+
+/* Footer Styles */
+.footer {
+    background: rgba(10, 10, 10, 0.98);
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+    color: var(--neon-blue);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-section a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--neon-blue);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    background: transparent;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, 
+        rgba(189, 0, 255, 0.4) 10%, 
+        rgba(0, 243, 255, 0.4) 50%, 
+        transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s ease, opacity 0.4s ease;
+    opacity: 0;
+    z-index: 0;
+}
+
+.social-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+.social-link span {
+    position: relative;
+    z-index: 2;
+}
+
+.social-link:hover {
+    color: var(--dark-bg);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.3);
+}
+
+.social-link:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.social-link:hover::after {
+    border-color: var(--neon-blue);
+    box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.4);
+}
+
+/* Add a animation to the text */
+.social-link:hover span {
+    animation: textGlow 1.2s infinite alternate;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* Particles */
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(0, 243, 255, 0.5);
+    border-radius: 50%;
+    animation: float 20s infinite linear;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    from {
+        transform: translateY(100vh) translateX(-10%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(-100vh) translateX(10%);
+        opacity: 0.6;
+    }
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(189, 0, 255, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+    }
+}

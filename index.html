@@ -1,6 +1,159 @@
 <!DOCTYPE html>
-<html>
-    <body>
-        <p>this is a test</p>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonah Merriam | Computer Scientist</title>
+    <!-- I like this, maybe find alternative though that doesn't depend on google, good enough for now though -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top nav bar with links to sections and animations -->
+    <nav class="nav">
+        <div class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Fancy display space for my name -->
+    <section class="hero">
+        <div class="particles"></div>   <!-- Insert the div for my particles -->
+        <h1>Jonah Merriam</h1>
+        <p class="hero-subtitle">Computer Scientist @ University of Connecticut</p>
+    </section>
+
+    <!-- Just a general about section taken from my resume -->
+    <section id="about" class="section">
+        <h2 class="section-title">About</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Bio</h3>
+                <p>A detail-oriented and community-focused individual with experience in customer-facing roles and team leadership, seeking to apply my skills in a dynamic and innovative environment while continuing to pursue a degree in Computer Science.</p>
+            </div>
+            <div class="card">
+                <h3>Skills</h3>
+                <ul>
+                    <li>Web Development</li>
+                    <li>Low Level Programming</li>
+                    <li>Quantum Computing</li>
+                    <li>Hardware Design</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Display some of my experience (which I don't have any of; say that you have projects and academics as experience) -->
+    <section id="experience" class="section">
+        <h2 class="section-title">Experience</h2>
+        <div class="card-grid">
+            <!-- Place-holder experience, not real -->
+            <div class="card">
+                <h3>Lorem Ipsum @ Company Lorem Ipsum</h3>
+                <p>2020-Present</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="card">
+                <h3>Lorem Ipsum @ Company Lorem Ipsum</h3>
+                <p>2018-2020</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Show some of my projects in a card format that scales well to mobile screens -->
+    <section id="projects" class="section">
+        <h2 class="section-title">Projects</h2>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-image">
+                    <img src="assets/placeholder.jpeg" alt="Project 1">
+                </div>
+                <h3>4-Qubit Quantum CPU Simulation</h3>
+                <p>2025</p>
+                <p>Developed an accurate 4-qubit quantum CPU simulation, implementing key quantum algorithms and principles to model quantum behavior with precision.</p>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="assets/placeholder.jpeg" alt="Project 2">
+                </div>
+                <h3>AI-Enhanced Infinite Text Adventure Game</h3>
+                <p>2024</p>
+                <p>Engineered an AI-driven, infinitely generated text adventure game using Ollama, delivering dynamic narratives and an immersive, interactive experience.</p>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="assets/placeholder.jpeg" alt="Project 3">
+                </div>
+                <h3>CPU Simulation</h3>
+                <p>2025</p>
+                <p>Developed a highly efficient 4-bit CPU simulation in both C and Python, showcasing deep understanding of low-level hardware interactions and cross-language implementation.</p>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="assets/placeholder.jpeg" alt="Project 4">
+                </div>
+                <h3>8-Bit CPU Architecture in Verilog</h3>
+                <p>2025</p>
+                <p>Designed and implemented a custom 8-bit CPU architecture in Verilog, featuring a LEG-like instruction set and hardware-level optimization.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nice footer section with links to socials, and email -->
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Jonah Merriam</h4>
+                <p>Doing "stuff" at the intersection of AI, quantum computing, hardware design, and low-level programming.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li>Email: <a href="mailto:jonah.merriam@uconn.edu">jonah.merriam@uconn.edu</a></li>
+                    <li>Phone: +1 (860) 387-7985</li>
+                    <li>Location: Torrington, CT</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Me</h4>
+                <div class="social-links">
+                    <a href="https://github.com/jonahmer22" target="_blank" class="social-link">
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/jonahmerriam" target="_blank" class="social-link">
+                        <span>LinkedIn</span>
+                    </a>
+                    <!-- <a href="https://x.com/_jonah_thegreat" target="_blank" class="social-link">
+                        <span>Twitter</span>
+                    </a>
+                    <a href="https://www.instagram.com/jonah_thegreat/" target="_blank" class="social-link">
+                        <span>Instagram</span> -->
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <!-- Side note here, I don't know if I'm allowed to just say something is copyrighted like this, might change it to gpl -->
+            <p>&copy; 2025 Jonah Merriam. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
 </html>
