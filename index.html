@@ -68,7 +68,7 @@
     <section id="projects" class="section">
         <h2 class="section-title">Projects</h2>
         <div class="card-grid">
-            <div class="card">
+            <div class="card" data-expandable="true" data-link-url="project1.html" data-link-text="View On GitHub">
                 <div class="card-image">
                     <img src="assets/placeholder.jpeg" alt="Project 1">
                 </div>
@@ -76,7 +76,7 @@
                 <p style="color: gray;">2025</p>
                 <p>Developed an accurate 4-qubit quantum CPU simulation, implementing key quantum algorithms and principles to model quantum behavior with precision.</p>
             </div>
-            <div class="card">
+            <div class="card" data-expandable="true" data-link-url="project2.html" data-link-text="View On GitHub">
                 <div class="card-image">
                     <img src="assets/placeholder.jpeg" alt="Project 2">
                 </div>
@@ -84,7 +84,7 @@
                 <p style="color: gray;">2024</p>
                 <p>Engineered an AI-driven, infinitely generated text adventure game using Ollama, delivering dynamic narratives and an immersive, interactive experience.</p>
             </div>
-            <div class="card">
+            <div class="card" data-expandable="true" data-link-url="https://github.com/jonahmer22/simple-LEG-like-cpu" data-link-text="View On GitHub">
                 <div class="card-image">
                     <img src="assets/placeholder.jpeg" alt="Project 3">
                 </div>
@@ -92,7 +92,7 @@
                 <p style="color: gray;">2025</p>
                 <p>Developed a highly efficient 4-bit CPU simulation in both C and Python, showcasing deep understanding of low-level hardware interactions and cross-language implementation.</p>
             </div>
-            <div class="card">
+            <div class="card" data-expandable="true" data-link-url="https://github.com/jonahmer22/CPUArchitecture" data-link-text="View On GitHub">
                 <div class="card-image">
                     <img src="assets/placeholder.jpeg" alt="Project 4">
                 </div>
@@ -102,7 +102,7 @@
             </div>
         </div>
     </section>
-
+    
     <!-- Nice footer section with links to socials, and email -->
     <footer id="contact" class="footer">
         <div class="footer-content">
@@ -147,7 +147,18 @@
             <!-- Side note here, I don't know if I'm allowed to just say something is copyrighted like this, might change it to gpl -->
             <p>2025 Jonah Merriam.</p>
         </div>
-    </footer>
+        
+        <!-- Modal expansion thing -->
+        <div id="card-modal" class="modal">
+            <div class="modal-container">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <!-- Dynamic content will be inserted here -->
+                </div>
+              </div>
+              <span class="modal-close">&times;</span>
+            </div>
+          </div>          
     <script src="script.js"></script>
 </body>
 </html>

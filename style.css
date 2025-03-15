@@ -302,6 +302,61 @@ body {
     animation: float 20s infinite linear;
 }
 
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    animation: modalFadeIn 0.3s ease-out;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.modal-link-button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    background: var(--neon-blue);
+    color: var(--dark-bg);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.modal-link-button:hover {
+    background: var(--accent-purple);
+}
+
 /* Animations */
 @keyframes fadeUp {
     to {
@@ -339,4 +394,57 @@ body {
     100% {
         text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
     }
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Ensure the container is relatively positioned so the close button can be absolutely positioned */
+.modal-container {
+    position: relative;
+    display: inline-block; /* shrink-wrap to the modal content */
+}
+
+/* Style the modal content as before */
+.modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    animation: modalFadeIn 0.3s ease-out;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+/* Move the close button outside the modal content and style it as a grey circle */
+.modal-close {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05); /* same as modal card background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 1200;
+    transition: background 0.3s ease;
+}
+
+/* Optional: add a hover effect to the close button */
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
