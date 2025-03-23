@@ -331,15 +331,6 @@ body {
     max-height: 90vh;
 }
 
-.modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 2rem;
-    color: #fff;
-    cursor: pointer;
-}
-
 .modal-link-button {
     display: inline-block;
     margin-top: 2rem;
