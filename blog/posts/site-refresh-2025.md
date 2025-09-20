@@ -1,6 +1,6 @@
 ---
 title: Portfolio Refresh 2025
-date: 2025-09-21
+date: 2025-09-19
 summary: Documenting the overhaul of jonahmerriam.net with a fresh layout, richer content sections, and a Markdown-powered blog.
 ---
 ## New look, clearer story
