@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arena Patterns in C - Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="bg-art"></div>
+  <nav>
+    <div class="container">
+      <strong>Jonah Merriam</strong>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="index.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1 class="fade">Arena Patterns in C</h1>
+    <p class="fade delay-10">Sharing how a lightweight shunting arena keeps my C projects fast and easy to reset.</p>
+  </header>
+
+  <div class="wave wave-bg">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
+
+  <section class="post" id="content">
+    <div class="container fade">
+      <article class="post-body">
+        <p class="post-meta">Last updated <span class="post-date">September 7, 2025</span></p>
+<h2>Why another arena?</h2>
+<p>I reach for arenas whenever I want deterministic lifetimes without the bookkeeping of individual frees. While building ReMem I pulled the arena into its own GPL v3 library so I could reuse it across interpreters, CLI tools, and coursework projects. The goal was to keep the implementation small enough to drop straight into source trees without adding build complexity.</p>
+
+<h2>Two flavors, same core</h2>
+<p>The library ships with global and local APIs. The global functions (<code>arenaInit</code>, <code>arenaAlloc</code>, <code>arenaReset</code>, <code>arenaDestroy</code>) hide everything behind static state, making it painless to slot the arena into a single-threaded prototype. Each function has a &quot;sister&quot; that accepts an explicit <code>Arena *</code> so more advanced projects can juggle multiple arenas or manage lifetimes manually.</p>
+
+<h2>How the shunting works</h2>
+<p>Allocations pull from a configurable <code>BUFF_SIZE</code> block (1 MB by default). When you request memory, two pointers march forward: one tracks the current block, and the other tracks where to place your data. If a request would overflow the block, the arena allocates a fresh chunk, links it, and continues. Resetting simply rewinds the pointers and frees any extra blocks, which keeps cleanup costs trivial.</p>
+
+<h2>Patterns I keep using</h2>
+<ul>
+<li><strong>Transient builders:</strong> parse trees, IR, or staging buffers that can all disappear in one reset.</li>
+<li><strong>Embedded scripting:</strong> toy languages like Marrow lean on arenas to allocate AST nodes without worrying about fine-grained frees.</li>
+<li><strong>Testing harnesses:</strong> deterministic allocation makes leak tracking predictable and repeatable.</li>
+</ul>
+
+<h2>Tips for adopting the arena</h2>
+<p>Start by swapping <code>malloc</code> calls that already clean up in one place, like per-frame buffers. Use <code>arenaReset</code> instead of repeatedly destroying and initializing; it frees everything except the original buffer so most allocations hit fast paths. If you need threaded access, spin up an arena per worker - this keeps the data structure lock-free and requires minimal extra code.</p>
+
+<p>The entire implementation lives in two files, intentionally short enough to read in one sitting. If you tweak <code>BUFF_SIZE</code>, remember that the arena aligns to the requested size so powers of two generally perform best.</p>
+
+<p>The source and documentation live at <a href="https://github.com/jonahmer22/arena" target="_blank" rel="noopener">github.com/jonahmer22/arena</a>. Feel free to adapt it for your own projects and send improvements back my way.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p><span id="current-year">2025</span> Jonah Merriam. Built with &#128153;.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

@@ -1,182 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonah Merriam | Computer Scientist</title>
-    <!-- I like this, maybe find alternative though that doesn't depend on google, good enough for now though -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonah Merriam - Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Top nav bar with links to sections and animations -->
-    <nav class="nav">
-        <div class="nav-links">
-            <a href="#about" class="nav-link">About</a>
-            <a href="#experience" class="nav-link">Experience</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </div>
-    </nav>
+  <div class="bg-art"></div>
+  <nav>
+    <div class="container">
+      <strong>Jonah Merriam</strong>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#awards">Awards</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- Fancy display space for my name -->
-    <section class="hero">
-        <div class="particles"></div>   <!-- Insert the div for my particles -->
-        <h1>Jonah Merriam</h1>
-        <p class="hero-subtitle">Computer Scientist @ University of Connecticut</p>
-    </section>
+  <header class="hero">
+    <img src="avatar.jpeg" alt="Portrait of Jonah Merriam" class="avatar fade delay-05">
+    <h1 class="fade">Hi, I'm Jonah.</h1>
+    <p class="fade delay-10">Computer Science student @ University of Connecticut</p>
+    <a class="btn fade delay-20" href="Resume.pdf" download>Download Resume</a>
+    <div class="social-icons fade delay-25">
+      <a href="https://github.com/jonahmer22" aria-label="GitHub" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.3-3.9-1.3-.5-1.1-1.2-1.4-1.2-1.4-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6 1.3 1.6 1.3.9 1.6 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.3-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.9 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.3.7 1 .7 2.1v3.1c0 .3.2.7.8.6A10.9 10.9 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/jonahmerriam/" aria-label="LinkedIn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4.98 3.5C4.98 5 4 6 2.5 6S0 5 0 3.5 1 1 2.5 1 4.98 2 4.98 3.5zM.5 8h4v15h-4V8zm7.5 0h3.8v2.2h.1c.5-1 1.9-2.2 4-2.2 4.3 0 5 2.8 5 6.4V23h-4v-7.8c0-1.9 0-4.4-2.7-4.4-2.7 0-3.1 2.1-3.1 4.3V23h-4V8z"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+  <div class="wave wave-bg">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
 
-    <!-- Just a general about section taken from my resume -->
-    <section id="about" class="section">
-        <h2 class="section-title">About</h2>
-        <div class="card-grid">
-            <div class="card">
-                <h3>Bio</h3>
-                <p>A detail-oriented and community-focused individual with experience in customer-facing roles and team leadership, seeking to apply my skills in a dynamic and innovative environment while continuing to pursue a degree in Computer Science.</p>
-            </div>
-            <div class="card">
-                <h3>Skills</h3>
-                <ul>
-                    <li>Web Development</li>
-                    <li>Low Level Programming</li>
-                    <li>Quantum Computing</li>
-                    <li>Hardware Design</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+  <section id="about">
+    <div class="container fade">
+      <h2 class="section-heading">About Me</h2>
+      <p>A detail-oriented and community-focused individual with experience in customer-facing roles and team leadership, seeking to apply my skills in a dynamic and innovative environment while continuing to pursue a degree in Computer Science.</p>
+      <div class="about-actions">
+        <a class="btn" href="blog/">Visit the Blog</a>
+      </div>
+    </div>
+  </section>
+  <div class="wave wave-accent">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z"></path>
+    </svg>
+  </div>
 
-    <!-- Display some of my experience (which I don't have any of; say that you have projects and academics as experience) -->
-    <!-- <section id="experience" class="section">
-        <h2 class="section-title">Experience</h2>
-        <div class="card-grid">
-            <!-- Place-holder experience, not real -->
-            <!-- <div class="card">
-                <h3>Lorem Ipsum @ Company Lorem Ipsum</h3>
-                <p style="color: gray;">2020-Present</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-            <div class="card">
-                <h3>Lorem Ipsum @ Company Lorem Ipsum</h3>
-                <p style="color: gray;">2018-2020</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-        </div>
-    </section> -->
+  <section id="skills" class="section-accent">
+    <div class="container fade">
+      <h2 class="section-heading">Key Skills</h2>
+      <ul class="skill-list">
+        <li>
+          <div class="skill-name">C / C++ &amp; ASM</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="90%"></span></div>
+          <div class="skill-desc">Core languages for kernels, thread pools, and ML in C.</div>
+        </li>
+        <li>
+          <div class="skill-name">Systems &amp; Low-Level Programming</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="85%"></span></div>
+          <div class="skill-desc">Memory management, OS internals, bare-metal projects.</div>
+        </li>
+        <li>
+          <div class="skill-name">Verilog / HDL</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="80%"></span></div>
+          <div class="skill-desc">8-Bit CPU architecture and hardware design fundamentals.</div>
+        </li>
+        <li>
+          <div class="skill-name">Git, CI/CD</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="80%"></span></div>
+          <div class="skill-desc">Version control, automated builds, and collaborative workflows.</div>
+        </li>
+        <li>
+          <div class="skill-name">Python &amp; Lua Scripting</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="75%"></span></div>
+          <div class="skill-desc">Rapid prototyping and tooling for projects and demos.</div>
+        </li>
+        <li>
+          <div class="skill-name">Quantum Computing Fundamentals</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="65%"></span></div>
+          <div class="skill-desc">Quantum CPU simulation and algorithm exploration.</div>
+        </li>
+        <li>
+          <div class="skill-name">Web Dev (HTML/CSS/JS)</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="65%"></span></div>
+          <div class="skill-desc">Responsive portfolio site on GitHub Pages with dark mode.</div>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-    <!-- Show some of my projects in a card format that scales well to mobile screens -->
-    <section id="projects" class="section">
-        <h2 class="section-title">Projects</h2>
-        <div class="card-grid">
-            <div class="card" data-expandable="true" data-link-url="https://github.com/jonahmer22/Pure-Quanta" data-link-text="View On GitHub">
-                <div class="card-image">
-                    <img src="assets/pure_quanta_temp.png" alt="Project 1">
-                </div>
-                <h3>Quantum CPU Simulation</h3>
-                <p style="color: gray;">2025</p>
-                <p>Developed an accurate quantum CPU simulation, implementing key quantum algorithms and principles to model quantum behavior with precision...</p>
-            </div>
-            <!-- <div class="card" data-expandable="true" data-link-url="project2.html" data-link-text="View On GitHub">
-                <div class="card-image">
-                    <img src="assets/placeholder.jpeg" alt="Project 2">
-                </div>
-                <h3>AI-Enhanced Infinite Text Adventure Game</h3>
-                <p style="color: gray;">2024</p>
-                <p>Engineered an AI-driven, infinitely generated text adventure game using Ollama, delivering dynamic narratives and an immersive, interactive experience...</p>
-            </div> -->
-            <div class="card" data-expandable="true" data-link-url="https://github.com/jonahmer22/simple-LEG-like-cpu" data-link-text="View On GitHub">
-                <div class="card-image">
-                    <img src="assets/CPUSimUI.png" alt="Project 3">
-                </div>
-                <h3>CPU Simulation</h3>
-                <p style="color: gray;">2025</p>
-                <p>Developed a highly efficient 4-bit CPU simulation in both C and Python, showcasing deep understanding of low-level hardware interactions and cross-language implementation...</p>
-            </div>
-            <div class="card" data-expandable="true" data-link-url="https://github.com/jonahmer22/CPUArchitecture" data-link-text="View On GitHub">
-                <div class="card-image">
-                    <img src="assets/custom_overture_temp.png" alt="Project 4">
-                </div>
-                <h3>8-Bit CPU Architecture in Verilog</h3>
-                <p style="color: gray;">2025</p>
-                <p>Designed and implemented a custom 8-bit CPU architecture in Verilog, featuring a LEG-like instruction set and hardware-level optimization...</p>
-            </div>
-        </div>
-        <!-- <div class="card-grid">
-            <div class="card" data-expandable="true" data-link-url="https://github.com/jonahmer22/pseudo" data-link-text="View On GitHub">
-                <div class="card-image">
-                    <img src="assets/placeholder.jpeg" alt="Project 2">
-                </div>
-                <h3>PSEUDO</h3>
-                <p style="color: gray;">2025</p>
-                <p>Description</p>
-            </div>
-            <div class="card" data-expandable="true" data-link-url="https://github.com/jonahmer22/Pure-Quanta" data-link-text="View On GitHub">
-                <div class="card-image">
-                    <img src="assets/placeholder.jpeg" alt="Project 2">
-                </div>
-                <h3>ML in C</h3>
-                <p style="color: gray;">DATE</p>
-                <p>Description</p>
-            </div>
-        </div> -->
-    </section>
-    
-    <!-- Nice footer section with links to socials, and email -->
-    <footer id="contact" class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Jonah Merriam</h4>
-                <p>Working at the intersection of AI, quantum computing, hardware design, and low-level programming.</p>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
+  <section id="experience">
+    <div class="container fade">
+      <h2 class="section-heading">Experience</h2>
+      <div class="card">
+        <h3>Intern, Bibliomation Inc - Remote (2025 - Present)</h3>
+        <ul>
+          <li>Contribute to Evergreen ILS, an open-source integrated library system used by consortia across the U.S.</li>
+          <li>Implement backend features, resolve bugs, and optimize PostgreSQL, Perl, and other server-side components alongside a distributed team.</li>
+          <li>Participate in code reviews, documentation efforts, and Git/GitLab workflows to support long-term maintainability.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <ul>
-                    <li>Email: <a href="mailto:jonah@jonahmerriam.net">jonah@jonahmerriam.net</a></li>
-                    <li>Phone: +1 (860) 387-7985</li>
-                    <li>Location: Torrington, CT</li>
-                </ul>
-            </div>
+  <section id="projects" class="section-accent">
+    <div class="container fade">
+      <h2 class="section-heading">Projects</h2>
+      <div class="card">
+        <h3>ReMem</h3>
+        <p>Built a lightweight memory recycler and garbage collector for C that reuses freed blocks through size-classed arenas and O(1) page lookups to cut allocation overhead.</p>
+      </div>
+      <div class="card">
+        <h3>CPU Simulation</h3>
+        <p>Built a highly efficient 4-bit CPU simulation in both C and Python, showcasing deep understanding of low-level hardware interactions and cross-language implementation.</p>
+      </div>
+      <div class="card">
+        <h3>8-Bit CPU Architecture in Verilog</h3>
+        <p>Designed and implemented a custom 8-bit CPU architecture in Verilog, featuring a LEG-like instruction set and hardware-level optimization.</p>
+      </div>
+      <div class="card">
+        <h3>arena</h3>
+        <p>Published a no-dependency shunting arena for C with global and local APIs that enable fast sequential allocations while keeping memory management predictable.</p>
+      </div>
+      <h3 class="section-heading section-heading-sub">Works in Progress</h3>
 
-            <div class="footer-section">
-                <h4>Follow Me</h4>
-                <div class="social-links">
-                    <a href="https://github.com/jonahmer22" target="_blank" class="social-link">
-                        <span>GitHub</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/jonahmerriam" target="_blank" class="social-link">
-                        <span>LinkedIn</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <!-- Side note here, I don't know if I'm allowed to just say something is copyrighted like this, might change it to gpl -->
-            <p>2025 Jonah Merriam.</p>
-        </div>
-        
-        <!-- modal expansion thing -->
-        <div id="card-modal" class="modal">
-            <div class="modal-container">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <!-- Dynamic content will be inserted here -->
-                </div>
-              </div>
-              <span class="modal-close"></span>
-            </div>
-          </div>          
-    <script src="script.js"></script>
+      <div class="card">
+        <h3>ML in C</h3>
+        <p>Exploring machine-learning primitives implemented purely in C for maximal performance and portability.</p>
+      </div>
+      <div class="card">
+        <h3>Marrow - Toy Programming Language</h3>
+        <p>Designed a beginner-friendly, expressive language that compiles to low-level constructs for performance. Implemented a hand-rolled recursive-descent parser in C.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="container fade">
+      <h2 class="section-heading">Education</h2>
+      <div class="card">
+        <h3>University of Connecticut - B.S. Computer Science</h3>
+        <p>Storrs, CT | Expected Graduation: 2027</p>
+      </div>
+      <div class="card">
+        <h3>Torrington High School</h3>
+        <p>Torrington, CT | High School Diploma, 2024</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave wave-accent">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z"></path>
+    </svg>
+  </div>
+
+  <section id="awards" class="section-accent">
+    <div class="container fade">
+      <h2 class="section-heading">Awards</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Rochester Institute of Technology Computing Award</strong> - May 2023</li>
+          <li><strong>President's Education Awards Program</strong> - 2020</li>
+          <li><strong>M. Tracy Conway Exchange Club Award</strong> - May 2022</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave wave-bg">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
+
+  <section id="contact">
+    <div class="container fade">
+      <h2 class="section-heading">Let's Connect</h2>
+      <p>Based in Torrington, Connecticut. Email <a href="mailto:jonah@jonahmerriam.net">jonah@jonahmerriam.net</a> to connect.</p>
+      <p>Explore the portfolio at <a href="https://jonahmerriam.net" target="_blank" rel="noopener">jonahmerriam.net</a> and find more work on <a href="https://github.com/jonahmer22" target="_blank" rel="noopener">GitHub</a> and <a href="https://linkedin.com/in/jonahmerriam/" target="_blank" rel="noopener">LinkedIn</a>.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p><span id="current-year">2025</span> Jonah Merriam. Built with &#128153;.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

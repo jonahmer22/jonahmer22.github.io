@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Refresh 2025 - Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="bg-art"></div>
+  <nav>
+    <div class="container">
+      <strong>Jonah Merriam</strong>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="index.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1 class="fade">Portfolio Refresh 2025</h1>
+    <p class="fade delay-10">Documenting the overhaul of jonahmerriam.net with a fresh layout, richer content sections, and a Markdown-powered blog.</p>
+  </header>
+
+  <div class="wave wave-bg">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
+
+  <section class="post" id="content">
+    <div class="container fade">
+      <article class="post-body">
+        <p class="post-meta">Last updated <span class="post-date">September 21, 2025</span></p>
+<h2>New look, clearer story</h2>
+<p>I rebuilt the entire landing page so it leads with the essentials: a tighter hero introduction, quick access to my resume, and consistent navigation that highlights each section as you scroll. Cards now use a light/dark friendly palette, the awards section made it onto the page, and works-in-progress finally sit alongside shipped projects.</p>
+
+<h2>Content updates across the board</h2>
+<ul>
+<li><strong>Skills</strong> now focus on the systems work I do most (C, low-level programming, tooling) with animated progress bars for a quick read.</li>
+<li><strong>Experience &amp; education</strong> reflect my current internship at Bibliomation and the latest program info from UConn.</li>
+<li><strong>Contact</strong> swaps the phone number for email + portfolio links to keep outreach simpler.</li>
+<li><strong>Footer</strong> automatically updates the year so it stays current without manual edits.</li>
+</ul>
+
+<h2>Blog + learning log</h2>
+<p>The site now includes a blog at <code>/blog/</code> with:</p>
+<ul>
+<li>A &quot;What I&#x27;m Learning Now&quot; feed to journal ongoing experiments.</li>
+<li>Full posts for ReMem and the Arena library, including rich code snippets.</li>
+<li>Cards that link directly to each article and highlight publication dates.</li>
+</ul>
+
+<h2>Markdown-driven workflow</h2>
+<p>To avoid hand-writing HTML, I built a tiny generator that turns Markdown into blog pages and updates the index automatically. Adding a post is now:</p>
+
+<pre><code class="language-bash">python3 blog/build.py</code></pre>
+
+<p>The script parses front matter, renders headings, lists, inline code, fenced code blocks, and links, then drops the output into the existing layout.</p>
+
+<h2>Reusable components &amp; polish</h2>
+<ul>
+<li>Shared styles live in <code>style.css</code>, including dark-mode aware code blocks and reusable animation delays.</li>
+<li><code>script.js</code> handles smooth scrolling, hero fade-ins, scroll spy navigation, and skill bar animations.</li>
+<li>The resume CTA and blog CTA share a common button style so calls-to-action feel cohesive.</li>
+</ul>
+
+<h2>What&#x27;s next</h2>
+<p>A few ideas on deck: generated RSS feeds, featured project spotlights with screenshots, and a public changelog so updates like this one are easier to track. For now, the site finally reflects what I&#x27;m building day to day - and keeps growing without fighting the tooling.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p><span id="current-year">2025</span> Jonah Merriam. Built with &#128153;.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonah Merriam - Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="bg-art"></div>
+  <nav>
+    <div class="container">
+      <strong>Jonah Merriam</strong>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="#learning">Learning</a></li>
+        <li><a href="#posts">Posts</a></li>
+        <li><a href="#notes">Notes</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1 class="fade">Writing & Updates</h1>
+    <p class="fade delay-10">Thoughts on systems programming, tooling experiments, and the projects I'm building.</p>
+  </header>
+
+  <div class="wave wave-bg">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
+
+  <section id="learning">
+    <div class="container fade">
+      <h2 class="section-heading">What I'm Learning Now</h2>
+      <div class="card">
+        <ul>
+          <li>Profiling multithreaded arena designs to inform the next iteration of ReMem.</li>
+          <li>Compilers coursework focused on register allocation and IR optimizations for Marrow.</li>
+          <li>CI automation experiments using GitHub Actions to keep student-run projects reproducible.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="posts">
+    <div class="container fade">
+      <h2 class="section-heading">Latest Posts</h2>
+      <a class="card post-card" href="site-refresh-2025.html">
+        <h3>Portfolio Refresh 2025</h3>
+        <p>Documenting the overhaul of jonahmerriam.net with a fresh layout, richer content sections, and a Markdown-powered blog.</p>
+        <p class="post-meta">Published September 21, 2025</p>
+      </a>
+      <a class="card post-card" href="remem.html">
+        <h3>ReMem Design Notes</h3>
+        <p>Designing a lightweight garbage collector and memory recycler that keeps C allocations predictable.</p>
+        <p class="post-meta">Published September 18, 2025</p>
+      </a>
+      <a class="card post-card" href="arena.html">
+        <h3>Arena Patterns in C</h3>
+        <p>Sharing how a lightweight shunting arena keeps my C projects fast and easy to reset.</p>
+        <p class="post-meta">Published September 7, 2025</p>
+      </a>
+    </div>
+  </section>
+
+  <div class="wave wave-accent">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z"></path>
+    </svg>
+  </div>
+
+  <section id="notes" class="section-accent">
+    <div class="container fade">
+      <h2 class="section-heading">Quick Notes</h2>
+      <div class="card">
+        <p>Drafting a post on benchmarking garbage collectors across low-power hardware.</p>
+      </div>
+      <div class="card">
+        <p>Planning a write-up on building consistent build tooling for student-run projects.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container fade">
+      <h2 class="section-heading">Why a Blog?</h2>
+      <p>This space gives me somewhere to unpack the technical choices behind my repos and track the experiments that don't yet deserve a full project page. Expect posts about systems programming, memory management, and the occasional learning note from school.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p><span id="current-year">2025</span> Jonah Merriam. Built with &#128153;.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

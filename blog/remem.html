@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReMem Design Notes - Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="bg-art"></div>
+  <nav>
+    <div class="container">
+      <strong>Jonah Merriam</strong>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="index.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1 class="fade">ReMem Design Notes</h1>
+    <p class="fade delay-10">Designing a lightweight garbage collector and memory recycler that keeps C allocations predictable.</p>
+  </header>
+
+  <div class="wave wave-bg">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
+
+  <section class="post" id="content">
+    <div class="container fade">
+      <article class="post-body">
+        <p class="post-meta">Last updated <span class="post-date">September 18, 2025</span></p>
+<h2>Why build a collector in C?</h2>
+<p>ReMem started as an experiment to see how far I could push higher-level memory conveniences without leaving the predictability of C. Writing hobby kernels, interpreters, and ML primitives made it obvious how much time gets sunk into manual allocation hygiene. I wanted a tool that felt safe enough for prototypes yet light enough to drop into systems projects without pulling in a runtime.</p>
+
+<h2>Key design goals</h2>
+<ul>
+<li><strong>Compatibility first.</strong> ReMem avoids external dependencies so it can travel between Linux, macOS, Apple Silicon, old x86 boards, and whatever comes next.</li>
+<li><strong>Predictable performance.</strong> By routing everything through size-classed arenas, allocations resolve in O(1) time and freed pages are recycled instead of repeatedly hitting the OS.</li>
+<li><strong>Drop-in ergonomics.</strong> The API mirrors <code>malloc</code>/<code>free</code> so projects can adopt it incrementally, with optional hooks for rooting GC-managed pointers.</li>
+</ul>
+
+<h2>How the arena-backed GC works</h2>
+<p>ReMem groups allocations into size classes and stores them inside arena-backed pages. When a block is freed, the collector simply marks it for reuse. Pages that drain completely are either cached in-memory (for speed) or returned to the arena depending on the <code>freeMemory</code> toggle. Page lookups, as well as the mapping from blocks to their parent arenas, stay O(1) via dense indexing tables.</p>
+
+<p>Large allocations that do not fit within a standard page are shunted directly to the underlying arena. Those blocks live until the GC is destroyed, which keeps the hot path simple while still covering edge cases.</p>
+
+<h2>Performance snapshot</h2>
+<p>I benchmarked the collector on both a modern Apple M3 Pro and a low-power Intel N150 laptop with a workload that touches roughly 16 GB of memory. Highlights:</p>
+<ul>
+<li>Plain <code>malloc/free</code>: ~2 s (M3 Pro) / ~4 s (Intel N150)</li>
+<li>ReMem with cached pages: ~3 s / ~19 s</li>
+<li>ReMem freeing pages back to the arena: ~3 s / ~40 s</li>
+<li>Python reference workload: ~38 s / ~81 s</li>
+</ul>
+
+<p>The collector always carries a small constant overhead compared to manual memory management, but it stays far closer to native performance than higher-level runtimes. When you can tolerate a little extra RSS, disabling page freeing keeps the allocator comfortably in the &quot;just works&quot; zone.</p>
+
+<h2>Roadmap and lessons learned</h2>
+<p>The roadmap includes a nursery for better short-lived allocation throughput and, in the long term, multithreading support. The nursery alone should deliver a 1.5-5x speed-up for GC-heavy workloads. I am also experimenting with better instrumentation so you can ask ReMem what it is doing in real time.</p>
+
+<p>Building ReMem reinforced that C can still host modern tooling patterns if you lean on tight data structures and avoid branching out of hot loops. The project also nudged me to formalize my documentation process; every release is tagged, licensed under GPL v3, and ships with clear change logs.</p>
+
+<h2>Example usage</h2>
+<pre><code class="language-c">int main(void) {
+    int stack_top;
+    if (!gcInit(&amp;stack_top, false)) {
+        return 1;
+    }
+
+    int *buffer = gcAlloc(sizeof(int) * 1024);
+    buffer[0] = 42;
+
+    gcDestroy();
+    return 0;
+}</code></pre>
+
+<p>If you want to dive into the source, the project lives on <a href="https://github.com/jonahmer22/ReMem" target="_blank" rel="noopener">GitHub</a>. Feedback, benchmarks, and pull requests are always welcome.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p><span id="current-year">2025</span> Jonah Merriam. Built with &#128153;.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
