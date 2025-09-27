@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Interpret Assembly? - Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="bg-art"></div>
+  <nav>
+    <div class="container">
+      <strong>Jonah Merriam</strong>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="index.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1 class="fade">Why Interpret Assembly?</h1>
+    <p class="fade delay-10">Why would I start another project just to interpret an infamously low-level language in a high-level manner?</p>
+  </header>
+
+  <div class="wave wave-bg">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
+
+  <section class="post" id="content">
+    <div class="container fade">
+      <article class="post-body">
+        <p class="post-meta">Last updated <span class="post-date">September 26, 2025</span></p>
+<h2>Turning assembly into a playground</h2>
+<p>I&#x27;m building Lexi-Lang because the usual path for trying ideas in assembly is far slower than it should be. As much as I enjoy working close to the metal, standing up toolchains, assemblers, and emulators just to validate a control-flow trick or stack discipline eats up whole nights. The project is still in its infancy, but the goal is to create a tight loop: write the instructions in a flexible syntax, feed them through a parser and compiler, and immediately watch them execute in a small virtual machine. Even at this early stage, framing the sandbox has already given me a safe place to sketch instruction semantics before I commit to a real ISA or hardware build.</p>
+
+<h2>Architecture in miniature</h2>
+<p>Lexi-Lang is specced to mirror the shape of a simple 16-bit CPU so experiments feel authentic without forcing me to model everything:</p>
+<ul>
+<li><strong>Registers:</strong> eight general-purpose 16-bit registers (<code>R0</code>-<code>R7</code>), an <code>ACC</code> accumulator that every arithmetic and logic opcode targets, plus <code>SP</code> and <code>PC</code> for the stack and instruction stream. That gives me 11 registers to juggle state the same way I would on a real board once the implementation lands.</li>
+<li><strong>Memory:</strong> a 64 KiB word-addressable space with a full-descending stack driven by <code>SP</code>. Pushes decrement, pops increment; just like the machines I want to emulate.</li>
+<li><strong>Instructions:</strong> the core set will cover data movement, math on the accumulator, bitwise logic, control flow, and a few specials like <code>HLT</code> and <code>NOP</code>. <code>MOV PC, Rs</code> opens the door to computed jumps and self-modifying code when I need to test gnarlier ideas.</li>
+</ul>
+
+<h2>Parser, compiler, virtual machine</h2>
+<p>I&#x27;m drafting the toolchain as a handwritten parser that feeds a compact compiler and a virtual machine. The shape is there: parse the custom assembly, emit 16-bit opcodes from a compiler (possibly into an output file as an option), and let the VM maintain the register file, update <code>PC</code> between instructions, and mutate the stack in lockstep with the memory model. Each component is still under construction, but keeping the three pieces in one codebase means I can iterate fast as soon as the first instructions execute end to end.</p>
+
+<h2>Countdown in Lexi-Lang</h2>
+<p>A tiny program from the README sums up the ergonomics:</p>
+
+<pre><code class="language-asm">    MOV R0, #5      ; start value
+    MOV ACC, R0
+
+loop:
+    DEC             ; ACC--
+    JLZ done        ; if ACC &lt; 0, jump to done
+    JMP loop        ; repeat
+
+done:
+    HLT</code></pre>
+
+<p>With only general-purpose registers, an accumulator, and a pair of jump instructions, I can sketch the same countdown logic I would try on real silicon. Getting this to run end to end is one of my next checkpoints, the interpreter will handle the bookkeeping so I can focus on the instruction behavior.</p>
+
+<h2>From prototype to ISA replicas</h2>
+<p>The long-term plan is to reuse this sandbox to script out replicas of real architectures: think a RISC-style core, an x86_32 subset, or whatever new ISA catches my attention. By starting with a malleable interpreter, I can iterate on instruction encodings, play with status flags, and prove out calling conventions before investing in a cycle-accurate emulator or HDL. Lexi-Lang is the bridge between an idea scribbled on paper and a fully specified ISA, even if the bridge is still being built plank by plank.</p>
+
+<h2>What comes next</h2>
+<p>Short term I want richer debugging hooks; stepping, register diffs, and memory watch windows to make experiments faster. Past that, I plan to extend the compiler so it can assemble macros and emit disassemblies. Each of those pieces moves me closer to the goal that kicked off this project: making assembly exploration quick enough that trying a new instruction set feels like another evening project, not a multi-week slog.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p><span id="current-year">2025</span> Jonah Merriam. Built with &#128153;.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
