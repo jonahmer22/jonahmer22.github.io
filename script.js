@@ -36,7 +36,7 @@ const fadeObserver = new IntersectionObserver(entries => {
       });
     }
   });
-}, { threshold: 0.2 });
+}, { threshold: 0.05 });
 
 document.querySelectorAll('.fade').forEach(el => fadeObserver.observe(el));
 

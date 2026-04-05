@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cortex-VM: Designing a Compiler-Friendly 64-bit Virtual Machine - Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="bg-art"></div>
+  <nav>
+    <div class="container">
+      <strong>Jonah Merriam</strong>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="index.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1 class="fade">Cortex-VM: Designing a Compiler-Friendly 64-bit Virtual Machine</h1>
+    <p class="fade delay-10">A deep dive into the ISA design, calling conventions, and engineering decisions behind building a fast, extensible VM as a language compiler target.</p>
+  </header>
+
+  <div class="wave wave-bg">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
+    </svg>
+  </div>
+
+  <section class="post" id="content">
+    <div class="container fade">
+      <article class="post-body">
+        <p class="post-meta">Last updated <span class="post-date">April 5, 2026</span></p>
+<h2>Why build a VM instead of targeting LLVM?</h2>
+
+<p>When I decided I wanted a real backend for my toy language project, the obvious answer was &quot;just target LLVM.&quot; LLVM is fantastic, but it comes with a significant complexity tax — learning the IR, the pass manager, and the quirks of the toolchain takes real time, and I wanted to stay close to the metal while keeping the whole system understandable. The other option was to target x86 directly, but then I&#x27;m writing a platform-specific backend and fighting calling conventions I didn&#x27;t design.</p>
+
+<p>Cortex-VM is my answer to both of those problems. It&#x27;s a 64-bit virtual machine I built from scratch as a compiler target — fast enough to be useful, simple enough to understand completely, and flexible enough to grow with the language.</p>
+
+<h2>Design Principles</h2>
+
+<p>Before writing any code I settled on a few hard rules that shaped everything that followed:</p>
+
+<ul>
+<li><strong>Word addressing only.</strong> All registers and memory words are 64 bits. Addresses and offsets are word indices, not byte offsets. This eliminates alignment headaches and makes code generation straightforward — there&#x27;s no &quot;load a 4-byte value from an unaligned address&quot; edge case.</li>
+<li><strong>No implicit side effects.</strong> No condition codes, no flags register, nothing hidden. If an instruction changes state, it does so by writing to a named register. This makes dataflow analysis trivial and keeps the VM easy to reason about.</li>
+<li><strong>Flat calling convention.</strong> The ABI supports up to 13 arguments and 13 return values in registers — no implicit stack frame, no hidden pointer arguments. Compiler writers can target it directly without wrestling with an ABI that predates their language.</li>
+</ul>
+
+<h2>The Register File</h2>
+
+<p>Cortex-VM has 64 registers, each 64 bits wide:</p>
+
+<ul>
+<li><code>r0</code> / <code>zero</code> — hardwired zero, reads always return 0, writes are ignored</li>
+<li><code>r1</code> / <code>pc</code> — program counter</li>
+<li><code>r2</code> / <code>sp</code> — stack pointer</li>
+<li><code>r3</code> / <code>ra</code> — return address</li>
+<li><code>s0</code>–<code>s13</code> — callee-saved (14 registers)</li>
+<li><code>a0</code>–<code>a13</code> — caller-saved; used for arguments, return values, and syscall numbers</li>
+<li><code>t0</code>–<code>t31</code> — temporaries (32 registers)</li>
+</ul>
+
+<p>Having 32 temporaries in particular is a gift for a compiler: register pressure is rarely the bottleneck, and spills to the stack are genuinely rare for most function bodies.</p>
+
+<h2>The ISA</h2>
+
+<p>All instructions are 64 bits wide. There are seven base instruction formats:</p>
+
+<ul>
+<li><strong>R-type</strong> (<code>0x81</code>) — register ALU: <code>rd = ra op rb</code></li>
+<li><strong>I-type</strong> (<code>0x82</code>) — immediate ALU / jump: <code>rd = ra op imm32</code></li>
+<li><strong>S-type</strong> (<code>0x83</code>) — store: <code>mem[ra + imm36] = rb</code></li>
+<li><strong>L-type</strong> (<code>0x84</code>) — load: <code>rd = mem[ra + imm36]</code></li>
+<li><strong>B-type</strong> (<code>0x85</code>) — branch with 36-bit PC-relative offset</li>
+<li><strong>SYS</strong> (<code>0x86</code>) — system: <code>halt</code>, <code>syscall</code>, <code>nop</code>, <code>break</code></li>
+</ul>
+
+<p>The instruction set is minimal by design. There&#x27;s <code>add</code>, <code>sub</code>, <code>or</code>, <code>xor</code>, <code>and</code>, and the shift trio (<code>sll</code>, <code>srl</code>, <code>sra</code>). Branches cover <code>beq</code>, <code>bne</code>, <code>blt</code>, and <code>bltu</code>. Jumps are done through the I-type <code>jmp</code> which writes the return address into <code>rd</code> and jumps to <code>ra + imm</code>, which covers both calls and computed branches in one instruction.</p>
+
+<p>A function call looks like this:</p>
+
+<pre><code class="language-asm">jmp ra, zero, target    ; ra = return address, jump to target
+jmp zero, ra, 0         ; return: jump to address in ra</code></pre>
+
+<p>Clean, explicit, and compiler-friendly.</p>
+
+<h2>Extensions</h2>
+
+<p>The base ISA is intentionally small. Two optional extensions cover the features that most programs need but that I didn&#x27;t want to bake into the core:</p>
+
+<p><strong>M Extension</strong> — integer multiply and divide. <code>mul</code>, <code>mulh</code>, <code>div</code>, <code>divu</code>, <code>rem</code>, <code>remu</code> and their immediate variants. <code>mulh</code> produces the upper 64 bits of a 128-bit product using <code>__int128_t</code>. The assembler detects M extension instructions automatically and sets the appropriate flag in the binary header.</p>
+
+<p><strong>F Extension</strong> — 64-bit IEEE 754 floating point. Rather than a separate register file, float instructions reinterpret the same 64-bit registers as doubles. Float immediates in instructions are 32-bit single-precision values widened at execution; full 64-bit doubles are available by loading from the <code>.data</code> section. The extension adds arithmetic (<code>fadd</code>, <code>fsub</code>, <code>fmul</code>, <code>fdiv</code>, <code>fsqrt</code>, <code>fabs</code>, <code>fneg</code>), conversion (<code>ftoi</code>, <code>ftoui</code>, <code>itof</code>, <code>uitof</code>), and float branches (<code>fblt</code>, <code>fble</code>, <code>fbgt</code>, <code>fbge</code>).</p>
+
+<h2>The Binary Format</h2>
+
+<p>Cortex-VM binaries have a 5-word header in big-endian 64-bit words:</p>
+
+<ul>
+<li><strong>Word 0:</strong> Magic number (<code>0x2E3A434F52540001</code> — &quot;.:CORT&quot; + version 1)</li>
+<li><strong>Word 1:</strong> File length in words</li>
+<li><strong>Word 2:</strong> Entry point (word index of <code>main:</code>)</li>
+<li><strong>Word 3:</strong> Extension flags (bitmask for EXT_FLOAT and EXT_M)</li>
+<li><strong>Word 4:</strong> Data offset (absolute word index of first <code>.data</code> word, or 0)</li>
+</ul>
+
+<p>The body is instructions followed by an optional <code>.data</code> section. Data words live in the code arena right after the last instruction, which means loading a string or constant is just a <code>lw</code> with a label address — no separate segment to manage.</p>
+
+<h2>The Assembler and Disassembler</h2>
+
+<p>The assembler is a single-pass design with a two-pass label resolution step to handle forward references. It supports decimal, hex (<code>0xFF</code>), binary (<code>0b1010</code>), octal (<code>0o17</code>), and character literals (<code>&amp;#x27;A&amp;#x27;</code>, <code>&amp;#x27;\n&amp;#x27;</code>). The <code>.data</code> section accepts strings (null-terminated, one character per word), integers, and 64-bit float literals.</p>
+
+<p>The disassembler is a full round-trip tool: given any Cortex-VM binary, it produces an assembly source file that re-assembles to a functionally equivalent binary. It detects null-terminated printable-ASCII sequences in the data section and emits them as quoted strings with proper escape sequences.</p>
+
+<p>I run 42 pytest tests that specifically verify disassembler round-trip fidelity — assemble a program, disassemble the binary, re-assemble, and compare execution output.</p>
+
+<h2>Syscall Interface</h2>
+
+<p>Rather than a full OS, the VM provides a syscall table for the things programs usually need: printing and reading integers, floats, strings, and characters; file open/read/write/close; seeded PRNG; and millisecond-precision time. The interface is simple: put the syscall number in <code>a13</code>, arguments in <code>a0</code>–<code>a12</code>, and execute <code>syscall</code>.</p>
+
+<h2>Performance</h2>
+
+<p>At <code>-O3 -march=native</code> on modern hardware with GCC-15, Cortex-VM runs around <strong>400 million instructions per second</strong> — roughly comparable to a Lua interpreter. That&#x27;s exactly the expected throughput for a dispatch-loop interpreter and more than fast enough to be a practical compiler target for a toy language.</p>
+
+<h2>Library API</h2>
+
+<p>One design goal I&#x27;m glad I committed to early: Cortex-VM builds as a static library (<code>libcortex-vm.a</code>) with a simple three-function API:</p>
+
+<pre><code class="language-c">uint64_t *cortexAssemble(const char *source, const char *outputPath);
+int cortexExecSource(const char *source);
+int cortexExecBinary(const uint64_t *binary, size_t wordCount);</code></pre>
+
+<p>This means the compiler can call <code>cortexExecSource</code> to run code immediately, or use <code>cortexAssemble</code> to build a binary once and run it many times. Keeping the VM embeddable from the start avoids a painful refactor later.</p>
+
+<h2>Where It Goes Next</h2>
+
+<p>Cortex-VM is now at v0.5.0 with 201 passing tests across all instruction types, extensions, syscalls, memory operations, and the disassembler. The immediate goal is to build the language frontend on top of it — a compiler that targets Cortex-VM as its backend, replacing the earlier prototype work. The flat calling convention and predictable word-addressed memory model were designed with that compiler in mind from the start, so the next step feels like snapping two purpose-built pieces together.</p>
+
+<p>The VM itself still has room to grow: heap allocation support (the address space is already reserved), more syscalls, and eventually a bytecode optimization pass. But the core is solid, the spec is written, and the test suite keeps it honest.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p><span id="current-year">2025</span> Jonah Merriam. Built with &#128153;.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

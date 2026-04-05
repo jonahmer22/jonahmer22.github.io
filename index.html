@@ -17,7 +17,6 @@
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="#awards">Awards</a></li>
@@ -53,7 +52,7 @@
   <section id="about">
     <div class="container fade">
       <h2 class="section-heading">About Me</h2>
-      <p>A detail-oriented and community-focused individual with experience in customer-facing roles and team leadership, seeking to apply my skills in a dynamic and innovative environment while continuing to pursue a degree in Computer Science.</p>
+      <p>CS student at UConn who spends most of his time close to the metal — writing C, designing instruction sets, and building the tools that make other tools possible. Currently working on Cortex-VM, a 64-bit virtual machine and assembler written from scratch, and Marrow-Lang, a compiled language targeting it. I care about systems that are fast, predictable, and fully understood by the person who wrote them.</p>
       <div class="about-actions">
         <a class="btn" href="blog/">Visit the Blog</a>
       </div>
@@ -108,20 +107,6 @@
     </div>
   </section>
 
-  <section id="experience">
-    <div class="container fade">
-      <h2 class="section-heading">Experience</h2>
-      <div class="card">
-        <h3>Intern, Bibliomation Inc - Remote (2025 - Present)</h3>
-        <ul>
-          <li>Contribute to Evergreen ILS, an open-source integrated library system used by consortia across the U.S.</li>
-          <li>Implement backend features, resolve bugs, and optimize PostgreSQL, Perl, and other server-side components alongside a distributed team.</li>
-          <li>Participate in code reviews, documentation efforts, and Git/GitLab workflows to support long-term maintainability.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <section id="projects" class="section-accent">
     <div class="container fade">
       <h2 class="section-heading">Projects</h2>
@@ -141,15 +126,19 @@
         <h3>arena</h3>
         <p>Published a no-dependency shunting arena for C with global and local APIs that enable fast sequential allocations while keeping memory management predictable.</p>
       </div>
-      <h3 class="section-heading section-heading-sub">Works in Progress</h3>
+      <div class="card">
+        <h3>Cortex-VM</h3>
+        <p>Built a fast, extensible 64-bit virtual machine and assembler in C as a compiler backend target. Features a word-addressed ISA with 64 registers, optional M (multiply/divide) and F (IEEE 754 float) extensions, a full disassembler with round-trip fidelity, and a three-function embeddable library API. Reaches ~400M instructions/sec at -O3 on modern hardware with 201 passing tests.</p>
+      </div>
+      <p class="wip-label">Works in Progress</p>
 
       <div class="card">
         <h3>ML in C</h3>
         <p>Exploring machine-learning primitives implemented purely in C for maximal performance and portability.</p>
       </div>
       <div class="card">
-        <h3>Marrow - Toy Programming Language</h3>
-        <p>Designed a beginner-friendly, expressive language that compiles to low-level constructs for performance. Implemented a hand-rolled recursive-descent parser in C.</p>
+        <h3>Marrow-Lang</h3>
+        <p>Designing and building a compiled language from scratch with a hand-rolled recursive-descent parser in C. Cortex-VM serves as the dedicated backend target, providing a compiler-friendly flat calling convention and predictable word-addressed memory model.</p>
       </div>
     </div>
   </section>
