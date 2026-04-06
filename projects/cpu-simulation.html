@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <title>CPU Simulation &mdash; Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <nav>
+    <div class="container">
+      <a href="../" class="nav-brand">Jonah Merriam</a>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../blog/">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero hero-sm">
+    <div class="hero-content">
+      <div class="project-tags reveal" data-reveal="up" style="justify-content:center;">
+        <span class="project-tag">C</span>
+        <span class="project-tag">Python</span>
+      </div>
+      <h1 class="reveal" data-reveal="up">CPU Simulation</h1>
+      <p class="hero-subtitle reveal" data-reveal="up">An 8-bit LEG-like CPU simulated in both C and Python, with a full instruction set and an interactive CLI.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="project-page-body">
+
+        <div class="project-meta-row reveal" data-reveal="up">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Python</span>
+            <span class="project-tag">CPU Architecture</span>
+          </div>
+          <a class="project-link" href="https://github.com/jonahmer22/simple-LEG-like-cpu" target="_blank" rel="noopener">GitHub &rarr;</a>
+        </div>
+
+        <div class="stat-grid reveal" data-reveal="up">
+          <div class="stat-card">
+            <span class="stat-value">8-bit</span>
+            <span class="stat-label">word size</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">16</span>
+            <span class="stat-label">registers (R0&ndash;R15)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">256</span>
+            <span class="stat-label">words of program memory</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">2</span>
+            <span class="stat-label">implementations (C + Python)</span>
+          </div>
+        </div>
+
+        <h2 class="reveal" data-reveal="up">Overview</h2>
+        <p class="reveal" data-reveal="up">This project is about understanding what a CPU actually does at the lowest level by building one from scratch &mdash; twice, in two different languages. The 8-bit LEG-like architecture is intentionally minimal: small enough to hold completely in your head, expressive enough to implement real programs. Implementing the same simulator in both C and Python forced a direct comparison of how each language handles bit manipulation, register state, and instruction dispatch.</p>
+
+        <h2 class="reveal" data-reveal="up">Instruction Set</h2>
+        <p class="reveal" data-reveal="up">Eight opcodes, all ALU results targeting <code>r0</code>:</p>
+        <ul class="reveal" data-reveal="up">
+          <li><code>000</code> &mdash; <strong>ADD</strong>: <code>ra + rb &rarr; r0</code></li>
+          <li><code>001</code> &mdash; <strong>SUB</strong>: <code>ra - rb &rarr; r0</code></li>
+          <li><code>010</code> &mdash; <strong>MOV</strong>: copy between registers</li>
+          <li><code>011</code> &mdash; <strong>IMMD</strong>: load immediate into register</li>
+          <li><code>100</code> &mdash; <strong>JMP_IF_ZERO</strong>: jump if <code>r0 == 0</code></li>
+          <li><code>101</code> &mdash; <strong>AND</strong>: <code>ra &amp; rb &rarr; r0</code></li>
+          <li><code>110</code> &mdash; <strong>OR</strong>: <code>ra | rb &rarr; r0</code></li>
+          <li><code>111</code> &mdash; <strong>NOT</strong>: <code>~ra &rarr; destination</code></li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">Architecture</h2>
+        <p class="reveal" data-reveal="up">The simulated CPU models a classic fetch-decode-execute cycle. Each tick, the processor reads an instruction from 256-word program memory, decodes the opcode and operands, updates register state, and advances the program counter. The interactive CLI lets you <code>program</code> the machine, <code>run</code> it, and <code>reset</code> between programs.</p>
+
+        <h2 class="reveal" data-reveal="up">What It Taught Me</h2>
+        <ul class="reveal" data-reveal="up">
+          <li>How the fetch-decode-execute cycle maps to real hardware behavior</li>
+          <li>Instruction encoding tradeoffs at the bit level</li>
+          <li>The practical difference between C's explicit bit manipulation and Python's high-level integer arithmetic</li>
+          <li>Why accumulator-based ALU designs (everything targets <code>r0</code>) simplify decode logic but complicate programs</li>
+        </ul>
+        <p class="reveal" data-reveal="up">These lessons fed directly into Cortex-VM's ISA design &mdash; particularly the choice of a proper register file over an accumulator model, and the decision to avoid implicit condition codes in favor of explicit comparison + branch instructions.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Jonah Merriam. Built with care.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

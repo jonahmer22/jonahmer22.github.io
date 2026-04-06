@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <title>Marrow-Lang &mdash; Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <nav>
+    <div class="container">
+      <a href="../" class="nav-brand">Jonah Merriam</a>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../blog/">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero hero-sm">
+    <div class="hero-content">
+      <div class="project-tags reveal" data-reveal="up" style="justify-content:center;">
+        <span class="project-tag">C</span>
+        <span class="project-tag">Compiler</span>
+        <span class="project-tag">Language</span>
+        <span class="project-tag">WIP</span>
+      </div>
+      <h1 class="reveal" data-reveal="up">Marrow-Lang</h1>
+      <p class="hero-subtitle reveal" data-reveal="up">A compiled language built from scratch in C, targeting Cortex-VM as its backend. Work in progress.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="project-page-body">
+
+        <div class="project-meta-row reveal" data-reveal="up">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Compiler</span>
+            <span class="project-tag">Language Design</span>
+            <span class="project-tag">WIP</span>
+          </div>
+          <a class="project-link" href="https://github.com/jonahmer22/marrow-lang" target="_blank" rel="noopener">GitHub &rarr;</a>
+        </div>
+
+        <div class="stat-grid reveal" data-reveal="up">
+          <div class="stat-card">
+            <span class="stat-value">2,114</span>
+            <span class="stat-label">lines of C</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">15</span>
+            <span class="stat-label">source files</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">Cortex-VM</span>
+            <span class="stat-label">backend target</span>
+          </div>
+        </div>
+
+        <h2 class="reveal" data-reveal="up">Overview</h2>
+        <p class="reveal" data-reveal="up">Marrow-Lang is my compiled language project &mdash; a from-scratch compiler pipeline written in C, targeting Cortex-VM as the backend. The entire toolchain is hand-rolled: no parser generators, no LLVM, no runtime borrowed from another language. Every component from lexer to code emission is designed and implemented directly.</p>
+        <p class="reveal" data-reveal="up">Building Cortex-VM first was intentional. The VM's flat calling convention, word-addressed memory model, and 64-register file were all designed with Marrow's code generation needs in mind. Now that the backend is stable and well-tested, the compiler frontend is the active work.</p>
+
+        <h2 class="reveal" data-reveal="up">Current Status</h2>
+        <ul class="reveal" data-reveal="up">
+          <li><strong>Tokenizer</strong> &mdash; complete; parses source and prints token streams</li>
+          <li><strong>Number subsystem</strong> &mdash; complete; arbitrary-precision decimal digit representation with basic arithmetic</li>
+          <li><strong>Parser / AST</strong> &mdash; in progress; building AST from token stream</li>
+          <li><strong>Bytecode emission</strong> &mdash; next; will emit Cortex-VM assembly via the <code>cortexAssemble</code> library API</li>
+          <li><strong>VM execution</strong> &mdash; pending; Cortex-VM is ready and waiting at v0.5.0, 201 tests passing</li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">Pipeline</h2>
+        <ul class="reveal" data-reveal="up">
+          <li><strong>Lexer</strong> &mdash; tokenises source into a flat token stream</li>
+          <li><strong>Parser</strong> &mdash; hand-rolled recursive-descent, produces an AST; AST nodes allocated through the arena library</li>
+          <li><strong>Semantic analysis</strong> &mdash; type checking and name resolution</li>
+          <li><strong>Code generation</strong> &mdash; walks the AST and emits Cortex-VM assembly, assembled via <code>cortexAssemble()</code></li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">Why a Custom Backend?</h2>
+        <p class="reveal" data-reveal="up">Targeting LLVM means inheriting its complexity. Targeting x86 directly means writing a platform-specific backend and wrestling with a calling convention I didn't design. Cortex-VM gives me a backend I understand completely &mdash; every instruction, every calling convention rule, every binary format detail is something I wrote and can change. That control makes it much easier to experiment with language semantics without getting stuck on backend mysteries.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Jonah Merriam. Built with care.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

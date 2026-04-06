@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jonah Merriam - Resume</title>
+  <meta name="theme-color" content="#09090b" />
+  <title>Jonah Merriam &mdash; Systems Programmer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="bg-art"></div>
+  <canvas id="particle-canvas"></canvas>
+
   <nav>
     <div class="container">
-      <strong>Jonah Merriam</strong>
+      <a href="/" class="nav-brand">Jonah Merriam</a>
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -26,172 +28,230 @@
   </nav>
 
   <header class="hero">
-    <img src="avatar.jpeg" alt="Portrait of Jonah Merriam" class="avatar fade delay-05">
-    <h1 class="fade">Hi, I'm Jonah.</h1>
-    <p class="fade delay-10">Computer Science student @ University of Connecticut</p>
-    <a class="btn fade delay-20" href="Resume.pdf" download>Download Resume</a>
-    <div class="social-icons fade delay-25">
-      <a href="https://github.com/jonahmer22" aria-label="GitHub" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.3-3.9-1.3-.5-1.1-1.2-1.4-1.2-1.4-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6 1.3 1.6 1.3.9 1.6 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.3-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.9 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.3.7 1 .7 2.1v3.1c0 .3.2.7.8.6A10.9 10.9 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
-        </svg>
-      </a>
-      <a href="https://linkedin.com/in/jonahmerriam/" aria-label="LinkedIn" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4.98 3.5C4.98 5 4 6 2.5 6S0 5 0 3.5 1 1 2.5 1 4.98 2 4.98 3.5zM.5 8h4v15h-4V8zm7.5 0h3.8v2.2h.1c.5-1 1.9-2.2 4-2.2 4.3 0 5 2.8 5 6.4V23h-4v-7.8c0-1.9 0-4.4-2.7-4.4-2.7 0-3.1 2.1-3.1 4.3V23h-4V8z"/>
-        </svg>
-      </a>
+    <div class="hero-content">
+      <img src="avatar.jpeg" alt="Portrait of Jonah Merriam" class="avatar reveal" data-reveal="scale">
+      <h1 class="reveal" data-reveal="up">Hi, I'm <span class="name-accent">Jonah.</span></h1>
+      <p class="hero-subtitle reveal" data-reveal="up">Computer Science student &mdash; University of Connecticut</p>
+      <p class="hero-sub reveal" data-reveal="up">
+        <span class="hero-sub-prefix">I'm a</span><span id="typewriter-text"></span><span class="typewriter-cursor"></span>
+      </p>
+      <div class="hero-actions reveal" data-reveal="up">
+        <a class="btn-primary" href="Resume.pdf" download>Download Resume</a>
+        <a class="btn-ghost" href="blog/">Visit the Blog</a>
+      </div>
+      <div class="social-icons reveal" data-reveal="up">
+        <a href="https://github.com/jonahmer22" aria-label="GitHub" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.3-3.9-1.3-.5-1.1-1.2-1.4-1.2-1.4-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6 1.3 1.6 1.3.9 1.6 2.5 1.1 3.1.8.1-.7.4-1.1.7-1.3-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.9 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.3.7 1 .7 2.1v3.1c0 .3.2.7.8.6A10.9 10.9 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/jonahmerriam/" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.98 3.5C4.98 5 4 6 2.5 6S0 5 0 3.5 1 1 2.5 1 4.98 2 4.98 3.5zM.5 8h4v15h-4V8zm7.5 0h3.8v2.2h.1c.5-1 1.9-2.2 4-2.2 4.3 0 5 2.8 5 6.4V23h-4v-7.8c0-1.9 0-4.4-2.7-4.4-2.7 0-3.1 2.1-3.1 4.3V23h-4V8z"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </header>
-  <div class="wave wave-bg">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
-    </svg>
-  </div>
 
   <section id="about">
-    <div class="container fade">
-      <h2 class="section-heading">About Me</h2>
-      <p>CS student at UConn who spends most of his time close to the metal — writing C, designing instruction sets, and building the tools that make other tools possible. Currently working on Cortex-VM, a 64-bit virtual machine and assembler written from scratch, and Marrow-Lang, a compiled language targeting it. I care about systems that are fast, predictable, and fully understood by the person who wrote them.</p>
-      <div class="about-actions">
-        <a class="btn" href="blog/">Visit the Blog</a>
+    <div class="container">
+      <h2 class="section-heading reveal" data-reveal="up">About Me</h2>
+      <p class="reveal" data-reveal="up">CS student at UConn who spends most of his time close to the metal &mdash; writing C, designing instruction sets, and building the tools that make other tools possible. Currently working on Cortex-VM, a 64-bit virtual machine and assembler written from scratch, and Marrow-Lang, a compiled language targeting it. I care about systems that are fast, predictable, and fully understood by the person who wrote them.</p>
+      <div class="about-actions reveal" data-reveal="up">
+        <a class="btn-ghost" href="blog/">Visit the Blog</a>
       </div>
     </div>
   </section>
-  <div class="wave wave-accent">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-      <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z"></path>
-    </svg>
-  </div>
 
-  <section id="skills" class="section-accent">
-    <div class="container fade">
-      <h2 class="section-heading">Key Skills</h2>
-      <ul class="skill-list">
-        <li>
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-heading reveal" data-reveal="up">Key Skills</h2>
+      <ul class="skill-list stagger-children">
+        <li class="reveal" data-reveal="up">
           <div class="skill-name">C / C++ &amp; ASM</div>
           <div class="skill-bar"><span class="skill-bar-fill" data-w="90%"></span></div>
-          <div class="skill-desc">Core languages for kernels, thread pools, and ML in C.</div>
+          <div class="skill-desc">Core languages for VMs, allocators, and systems tools.</div>
         </li>
-        <li>
+        <li class="reveal" data-reveal="up">
           <div class="skill-name">Systems &amp; Low-Level Programming</div>
           <div class="skill-bar"><span class="skill-bar-fill" data-w="85%"></span></div>
-          <div class="skill-desc">Memory management, OS internals, bare-metal projects.</div>
+          <div class="skill-desc">Memory management, ISA design, bare-metal projects.</div>
         </li>
-        <li>
-          <div class="skill-name">Verilog / HDL</div>
+        <li class="reveal" data-reveal="up">
+          <div class="skill-name">Compiler &amp; Language Design</div>
           <div class="skill-bar"><span class="skill-bar-fill" data-w="80%"></span></div>
+          <div class="skill-desc">Assemblers, recursive-descent parsers, IR and code generation.</div>
+        </li>
+        <li class="reveal" data-reveal="up">
+          <div class="skill-name">Verilog / HDL</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="78%"></span></div>
           <div class="skill-desc">8-Bit CPU architecture and hardware design fundamentals.</div>
         </li>
-        <li>
+        <li class="reveal" data-reveal="up">
           <div class="skill-name">Git, CI/CD</div>
           <div class="skill-bar"><span class="skill-bar-fill" data-w="80%"></span></div>
           <div class="skill-desc">Version control, automated builds, and collaborative workflows.</div>
         </li>
-        <li>
+        <li class="reveal" data-reveal="up">
           <div class="skill-name">Python &amp; Lua Scripting</div>
           <div class="skill-bar"><span class="skill-bar-fill" data-w="75%"></span></div>
           <div class="skill-desc">Rapid prototyping and tooling for projects and demos.</div>
         </li>
-        <li>
+        <li class="reveal" data-reveal="up">
+          <div class="skill-name">pytest &amp; Test Engineering</div>
+          <div class="skill-bar"><span class="skill-bar-fill" data-w="78%"></span></div>
+          <div class="skill-desc">201-test suite for Cortex-VM covering ISA, extensions, syscalls, and disassembler round-trips.</div>
+        </li>
+        <li class="reveal" data-reveal="up">
           <div class="skill-name">Quantum Computing Fundamentals</div>
           <div class="skill-bar"><span class="skill-bar-fill" data-w="65%"></span></div>
           <div class="skill-desc">Quantum CPU simulation and algorithm exploration.</div>
-        </li>
-        <li>
-          <div class="skill-name">Web Dev (HTML/CSS/JS)</div>
-          <div class="skill-bar"><span class="skill-bar-fill" data-w="65%"></span></div>
-          <div class="skill-desc">Responsive portfolio site on GitHub Pages with dark mode.</div>
         </li>
       </ul>
     </div>
   </section>
 
-  <section id="projects" class="section-accent">
-    <div class="container fade">
-      <h2 class="section-heading">Projects</h2>
-      <div class="card">
-        <h3>ReMem</h3>
-        <p>Built a lightweight memory recycler and garbage collector for C that reuses freed blocks through size-classed arenas and O(1) page lookups to cut allocation overhead.</p>
-      </div>
-      <div class="card">
-        <h3>CPU Simulation</h3>
-        <p>Built a highly efficient 4-bit CPU simulation in both C and Python, showcasing deep understanding of low-level hardware interactions and cross-language implementation.</p>
-      </div>
-      <div class="card">
-        <h3>8-Bit CPU Architecture in Verilog</h3>
-        <p>Designed and implemented a custom 8-bit CPU architecture in Verilog, featuring a LEG-like instruction set and hardware-level optimization.</p>
-      </div>
-      <div class="card">
-        <h3>arena</h3>
-        <p>Published a no-dependency shunting arena for C with global and local APIs that enable fast sequential allocations while keeping memory management predictable.</p>
-      </div>
-      <div class="card">
-        <h3>Cortex-VM</h3>
-        <p>Built a fast, extensible 64-bit virtual machine and assembler in C as a compiler backend target. Features a word-addressed ISA with 64 registers, optional M (multiply/divide) and F (IEEE 754 float) extensions, a full disassembler with round-trip fidelity, and a three-function embeddable library API. Reaches ~400M instructions/sec at -O3 on modern hardware with 201 passing tests.</p>
-      </div>
-      <p class="wip-label">Works in Progress</p>
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-heading reveal" data-reveal="up">Projects</h2>
+      <div class="projects-grid stagger-children">
 
-      <div class="card">
-        <h3>ML in C</h3>
-        <p>Exploring machine-learning primitives implemented purely in C for maximal performance and portability.</p>
+        <div class="card project-card reveal" data-reveal="scale">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">VM</span>
+            <span class="project-tag">Assembler</span>
+          </div>
+          <h3>Cortex-VM</h3>
+          <p>Built a fast, extensible 64-bit virtual machine and assembler in C as a compiler backend target. Features a word-addressed ISA with 64 registers, optional M and F (IEEE 754) extensions, a full disassembler with round-trip fidelity, and an embeddable library API. Reaches ~400M instructions/sec at -O3.</p>
+          <a class="project-link" href="projects/cortex-vm.html">View project &rarr;</a>
+        </div>
+
+        <div class="card project-card reveal" data-reveal="scale">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Memory</span>
+          </div>
+          <h3>ReMem</h3>
+          <p>Built a lightweight memory recycler and garbage collector for C that reuses freed blocks through size-classed arenas and O(1) page lookups to cut allocation overhead.</p>
+          <a class="project-link" href="projects/remem.html">View project &rarr;</a>
+        </div>
+
+        <div class="card project-card reveal" data-reveal="scale">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Allocator</span>
+          </div>
+          <h3>arena</h3>
+          <p>Published a no-dependency shunting arena for C with global and local APIs that enable fast sequential allocations while keeping memory management predictable.</p>
+          <a class="project-link" href="projects/arena.html">View project &rarr;</a>
+        </div>
+
+        <div class="card project-card reveal" data-reveal="scale">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Python</span>
+          </div>
+          <h3>CPU Simulation</h3>
+          <p>An 8-bit LEG-like CPU simulated in both C and Python. Implements a full instruction set &mdash; ADD, SUB, AND, OR, NOT, MOV, IMMD, JMP_IF_ZERO &mdash; with 16 registers, 256-word program memory, and an interactive CLI.</p>
+          <a class="project-link" href="projects/cpu-simulation.html">View project &rarr;</a>
+        </div>
+
+        <div class="card project-card reveal" data-reveal="scale">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Quantum Computing</span>
+          </div>
+          <h3>Pure-Quanta</h3>
+          <p>A quantum computer simulator in pure C using state vectors of double-precision complex numbers. Implements Hadamard, Pauli-X/Y/Z, and CNOT gates as direct linear transformations over the 2<sup>n</sup>-amplitude state vector.</p>
+          <a class="project-link" href="projects/8bit-cpu.html">View project &rarr;</a>
+        </div>
+
       </div>
-      <div class="card">
-        <h3>Marrow-Lang</h3>
-        <p>Designing and building a compiled language from scratch with a hand-rolled recursive-descent parser in C. Cortex-VM serves as the dedicated backend target, providing a compiler-friendly flat calling convention and predictable word-addressed memory model.</p>
+
+      <p class="wip-label reveal" data-reveal="up">Works in Progress</p>
+      <div class="projects-grid stagger-children">
+
+        <div class="card project-card reveal" data-reveal="scale">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Compiler</span>
+            <span class="project-tag">Language</span>
+          </div>
+          <h3>Marrow-Lang</h3>
+          <p>Designing and building a compiled language from scratch with a hand-rolled recursive-descent parser in C. Cortex-VM serves as the dedicated backend target, providing a compiler-friendly flat calling convention and predictable word-addressed memory model.</p>
+          <a class="project-link" href="projects/marrow-lang.html">View project &rarr;</a>
+        </div>
+
+        <div class="card project-card reveal" data-reveal="scale">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">ML</span>
+          </div>
+          <h3>ML in C</h3>
+          <p>Exploring machine-learning primitives implemented purely in C for maximal performance and portability.</p>
+          <a class="project-link" href="projects/ml-in-c.html">View project &rarr;</a>
+        </div>
+
       </div>
     </div>
   </section>
 
   <section id="education">
-    <div class="container fade">
-      <h2 class="section-heading">Education</h2>
-      <div class="card">
-        <h3>University of Connecticut - B.S. Computer Science</h3>
-        <p>Storrs, CT | Expected Graduation: 2027</p>
-      </div>
-      <div class="card">
-        <h3>Torrington High School</h3>
-        <p>Torrington, CT | High School Diploma, 2024</p>
+    <div class="container">
+      <h2 class="section-heading reveal" data-reveal="up">Education</h2>
+      <div class="timeline">
+        <div class="timeline-item reveal" data-reveal="left">
+          <h3>University of Connecticut</h3>
+          <p class="timeline-degree">B.S. Computer Science</p>
+          <p class="muted">Storrs, CT &mdash; Expected 2027</p>
+        </div>
+        <div class="timeline-item reveal" data-reveal="left">
+          <h3>Torrington High School</h3>
+          <p class="timeline-degree">High School Diploma</p>
+          <p class="muted">Torrington, CT &mdash; 2024</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="wave wave-accent">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-      <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z"></path>
-    </svg>
-  </div>
-
-  <section id="awards" class="section-accent">
-    <div class="container fade">
-      <h2 class="section-heading">Awards</h2>
-      <div class="card">
-        <ul>
-          <li><strong>Rochester Institute of Technology Computing Award</strong> - May 2023</li>
-          <li><strong>President's Education Awards Program</strong> - 2020</li>
-          <li><strong>M. Tracy Conway Exchange Club Award</strong> - May 2022</li>
+  <section id="awards">
+    <div class="container">
+      <h2 class="section-heading reveal" data-reveal="up">Awards</h2>
+      <div class="card reveal" data-reveal="scale">
+        <ul class="awards-list">
+          <li>
+            <span class="award-year">2023</span>
+            <strong>Rochester Institute of Technology Computing Award</strong>
+          </li>
+          <li>
+            <span class="award-year">2022</span>
+            <strong>M. Tracy Conway Exchange Club Award</strong>
+          </li>
+          <li>
+            <span class="award-year">2020</span>
+            <strong>President's Education Awards Program</strong>
+          </li>
         </ul>
       </div>
     </div>
   </section>
 
-  <div class="wave wave-bg">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"></path>
-    </svg>
-  </div>
-
   <section id="contact">
-    <div class="container fade">
-      <h2 class="section-heading">Let's Connect</h2>
-      <p>Based in Torrington, Connecticut. Email <a href="mailto:jonah@jonahmerriam.net">jonah@jonahmerriam.net</a> to connect.</p>
-      <p>Explore the portfolio at <a href="https://jonahmerriam.net" target="_blank" rel="noopener">jonahmerriam.net</a> and find more work on <a href="https://github.com/jonahmer22" target="_blank" rel="noopener">GitHub</a> and <a href="https://linkedin.com/in/jonahmerriam/" target="_blank" rel="noopener">LinkedIn</a>.</p>
+    <div class="container">
+      <h2 class="section-heading reveal" data-reveal="up">Let's Connect</h2>
+      <p class="reveal" data-reveal="up">Based in Torrington, Connecticut. Open to interesting conversations about systems programming, compilers, and low-level engineering.</p>
+      <div class="contact-links reveal" data-reveal="up">
+        <a class="btn-primary" href="mailto:jonah@jonahmerriam.net">Send Email</a>
+        <a class="btn-ghost" href="https://github.com/jonahmer22" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn-ghost" href="https://linkedin.com/in/jonahmerriam/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p><span id="current-year">2025</span> Jonah Merriam. Built with &#128153;.</p>
+    <p>&copy; <span id="current-year"></span> Jonah Merriam. Built with care.</p>
   </footer>
 
   <script src="script.js"></script>

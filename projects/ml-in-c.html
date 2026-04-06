@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <title>ML in C &mdash; Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <nav>
+    <div class="container">
+      <a href="../" class="nav-brand">Jonah Merriam</a>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../blog/">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero hero-sm">
+    <div class="hero-content">
+      <div class="project-tags reveal" data-reveal="up" style="justify-content:center;">
+        <span class="project-tag">C</span>
+        <span class="project-tag">ML</span>
+        <span class="project-tag">WIP</span>
+      </div>
+      <h1 class="reveal" data-reveal="up">ML in C</h1>
+      <p class="hero-subtitle reveal" data-reveal="up">Exploring machine-learning primitives implemented purely in C for maximum performance and portability.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="project-page-body">
+
+        <div class="project-meta-row reveal" data-reveal="up">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Machine Learning</span>
+            <span class="project-tag">WIP</span>
+          </div>
+        </div>
+
+        <h2 class="reveal" data-reveal="up">Overview</h2>
+        <p class="reveal" data-reveal="up">ML in C is an exploration of what machine-learning primitives look like when you remove every abstraction layer. No Python, no framework, no automatic differentiation engine &mdash; just C, a compiler, and the math. The goal is to build a working understanding of the fundamental operations that underpin neural networks by implementing them directly.</p>
+
+        <h2 class="reveal" data-reveal="up">Motivation</h2>
+        <p class="reveal" data-reveal="up">Most ML education happens through frameworks that abstract away the interesting parts. Knowing that <code>model.backward()</code> computes gradients is not the same as knowing how it actually works. Implementing backpropagation, matrix operations, and activation functions in plain C forces a complete understanding of the mechanics &mdash; and reveals exactly where the computational cost comes from.</p>
+        <p class="reveal" data-reveal="up">There's also a practical angle: C ML runs anywhere. No Python environment, no CUDA dependency, no package manager. A model compiled with this library should run on whatever hardware is available.</p>
+
+        <h2 class="reveal" data-reveal="up">Current Status</h2>
+        <p class="reveal" data-reveal="up">Early exploration. Currently investigating matrix operations, activation functions, and the structure of a forward pass. A write-up will follow once the fundamentals are solid enough to be worth documenting.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Jonah Merriam. Built with care.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
