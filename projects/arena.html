@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <title>arena &mdash; Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <nav>
+    <div class="container">
+      <a href="../" class="nav-brand">Jonah Merriam</a>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../blog/">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero hero-sm">
+    <div class="hero-content">
+      <div class="project-tags reveal" data-reveal="up" style="justify-content:center;">
+        <span class="project-tag">C</span>
+        <span class="project-tag">Allocator</span>
+      </div>
+      <h1 class="reveal" data-reveal="up">arena</h1>
+      <p class="hero-subtitle reveal" data-reveal="up">A no-dependency shunting arena allocator for C with global and local APIs.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="project-page-body">
+
+        <div class="project-meta-row reveal" data-reveal="up">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Allocator</span>
+            <span class="project-tag">v1.01</span>
+          </div>
+          <a class="project-link" href="https://github.com/jonahmer22/arena" target="_blank" rel="noopener">GitHub &rarr;</a>
+          <a class="project-link" href="../blog/arena.html">Blog Post &rarr;</a>
+        </div>
+
+        <div class="stat-grid reveal" data-reveal="up">
+          <div class="stat-card">
+            <span class="stat-value">0</span>
+            <span class="stat-label">dependencies</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">2</span>
+            <span class="stat-label">source files</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">1 MB</span>
+            <span class="stat-label">default block size</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">Inlined</span>
+            <span class="stat-label">all functions for performance</span>
+          </div>
+        </div>
+
+        <h2 class="reveal" data-reveal="up">Overview</h2>
+        <p class="reveal" data-reveal="up">I reach for arenas whenever I want deterministic lifetimes without the bookkeeping of individual frees. While building ReMem I pulled the arena into its own library so I could reuse it across interpreters, CLI tools, and coursework projects. The goal: small enough to drop straight into a source tree without adding build complexity, yet complete enough to cover the allocation patterns that come up in real projects.</p>
+
+        <h2 class="reveal" data-reveal="up">Two Flavors, Same Core</h2>
+        <p class="reveal" data-reveal="up">The library ships with both global and local APIs. The global functions (<code>arenaInit</code>, <code>arenaAlloc</code>, <code>arenaReset</code>, <code>arenaDestroy</code>) hide everything behind static state &mdash; painless for single-threaded prototypes. Each function has a counterpart that accepts an explicit <code>Arena *</code> so more advanced projects can juggle multiple arenas or manage lifetimes manually.</p>
+
+        <h2 class="reveal" data-reveal="up">How the Shunting Works</h2>
+        <p class="reveal" data-reveal="up">Allocations pull from a configurable <code>BUFF_SIZE</code> block (1 MB by default). Two pointers march forward: one tracks the current block, one tracks placement. When a request would overflow the block, the arena allocates a fresh chunk, links it, and continues. Resetting rewinds the pointers and frees any extra blocks &mdash; cleanup is trivial and predictable.</p>
+
+        <h2 class="reveal" data-reveal="up">Usage</h2>
+        <pre class="reveal" data-reveal="up"><code class="language-c">// Global API — simplest case
+arenaInit();
+char *buf = arenaAlloc(256);
+// ... use buf ...
+arenaReset();   // rewind, keep buffer
+arenaDestroy(); // free everything
+
+// Local API — multiple arenas
+Arena a;
+arenaInitLocal(&a);
+Node *node = arenaAllocLocal(&a, sizeof(Node));
+arenaResetLocal(&a);
+arenaDestroyLocal(&a);</code></pre>
+
+        <h2 class="reveal" data-reveal="up">Patterns I Keep Using</h2>
+        <ul class="reveal" data-reveal="up">
+          <li><strong>Transient builders:</strong> parse trees, IR, or staging buffers that can all disappear in one reset.</li>
+          <li><strong>Embedded scripting:</strong> Marrow-Lang allocates AST nodes through the arena without worrying about fine-grained frees.</li>
+          <li><strong>Testing harnesses:</strong> deterministic allocation makes leak tracking predictable and repeatable.</li>
+          <li><strong>Per-frame buffers:</strong> swap <code>malloc</code> calls that already clean up in one place &mdash; hit <code>arenaReset</code> instead of repeatedly destroying and reinitializing.</li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">v1.01 Changes</h2>
+        <ul class="reveal" data-reveal="up">
+          <li>More safety guards to prevent misuse</li>
+          <li>Allocation retried at least twice before failing, reducing spurious allocation failures</li>
+          <li>Global arena no longer requires explicit <code>arenaInit()</code> &mdash; just call <code>arenaAlloc()</code> and <code>arenaDestroy()</code></li>
+          <li>All functions inlined for a slight performance increase</li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">Tips</h2>
+        <p class="reveal" data-reveal="up">If you tweak <code>BUFF_SIZE</code>, powers of two generally perform best since the arena aligns to the requested size. For threaded use, spin up one arena per worker &mdash; this keeps the data structure lock-free and requires minimal extra code. The entire implementation fits in two files and is intentionally short enough to read in one sitting.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Jonah Merriam. Built with care.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

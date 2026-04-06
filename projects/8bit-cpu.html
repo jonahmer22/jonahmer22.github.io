@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <title>Pure-Quanta &mdash; Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <nav>
+    <div class="container">
+      <a href="../" class="nav-brand">Jonah Merriam</a>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../blog/">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero hero-sm">
+    <div class="hero-content">
+      <div class="project-tags reveal" data-reveal="up" style="justify-content:center;">
+        <span class="project-tag">C</span>
+        <span class="project-tag">Quantum Computing</span>
+      </div>
+      <h1 class="reveal" data-reveal="up">Pure-Quanta</h1>
+      <p class="hero-subtitle reveal" data-reveal="up">A quantum computer simulator in pure C, using state vectors of double-precision complex numbers.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="project-page-body">
+
+        <div class="project-meta-row reveal" data-reveal="up">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Quantum Computing</span>
+            <span class="project-tag">Simulation</span>
+          </div>
+          <a class="project-link" href="https://github.com/jonahmer22/Pure-Quanta" target="_blank" rel="noopener">GitHub &rarr;</a>
+        </div>
+
+        <div class="stat-grid reveal" data-reveal="up">
+          <div class="stat-card">
+            <span class="stat-value">2<sup>n</sup></span>
+            <span class="stat-label">complex amplitudes per n qubits</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">5</span>
+            <span class="stat-label">quantum gates implemented</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">0</span>
+            <span class="stat-label">dependencies</span>
+          </div>
+        </div>
+
+        <h2 class="reveal" data-reveal="up">Overview</h2>
+        <p class="reveal" data-reveal="up">Pure-Quanta is a quantum computer simulator written in pure C. Rather than using a library or framework, the simulator represents quantum state directly as a vector of 2<sup>n</sup> double-precision complex numbers and applies gate operations as linear transformations over that vector. This makes the quantum mechanics fully explicit in the code.</p>
+        <p class="reveal" data-reveal="up">The project was motivated by wanting to understand quantum computing fundamentals from first principles &mdash; not just calling <code>qiskit.execute()</code>, but actually implementing the matrix operations that underpin every quantum gate.</p>
+
+        <h2 class="reveal" data-reveal="up">How It Works</h2>
+        <p class="reveal" data-reveal="up">An n-qubit system is represented as a state vector of 2<sup>n</sup> complex amplitudes. The system initialises in the |0&hellip;0&rang; state. Gate operations are applied by transforming the state vector according to the gate's unitary matrix. All arithmetic is double-precision complex number arithmetic in C.</p>
+
+        <h2 class="reveal" data-reveal="up">Gates Implemented</h2>
+        <ul class="reveal" data-reveal="up">
+          <li><strong>Hadamard (H)</strong> &mdash; creates equal superposition: <code>|0&rang; &rarr; (|0&rang; + |1&rang;) / &radic;2</code></li>
+          <li><strong>Pauli-X</strong> &mdash; quantum NOT gate: flips <code>|0&rang; &harr; |1&rang;</code></li>
+          <li><strong>Pauli-Y</strong> &mdash; phase-shifted flip with &plusmn;i factors</li>
+          <li><strong>Pauli-Z</strong> &mdash; phase flip: applies &minus;1 phase to <code>|1&rang;</code></li>
+          <li><strong>CNOT</strong> &mdash; two-qubit controlled-NOT; flips target qubit when control is <code>|1&rang;</code></li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">Usage</h2>
+        <pre class="reveal" data-reveal="up"><code class="language-bash">make
+./pure-quanta 4    # simulate a 4-qubit system</code></pre>
+
+        <h2 class="reveal" data-reveal="up">Planned</h2>
+        <ul class="reveal" data-reveal="up">
+          <li>Quantum measurement with probabilistic state collapse</li>
+          <li>Additional gates and circuit composition</li>
+          <li>Performance optimisations for larger qubit counts</li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Jonah Merriam. Built with care.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

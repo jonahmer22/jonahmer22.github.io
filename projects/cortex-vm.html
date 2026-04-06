@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <title>Cortex-VM &mdash; Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <nav>
+    <div class="container">
+      <a href="../" class="nav-brand">Jonah Merriam</a>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../blog/">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero hero-sm">
+    <div class="hero-content">
+      <div class="project-tags reveal" data-reveal="up" style="justify-content:center;">
+        <span class="project-tag">C</span>
+        <span class="project-tag">VM</span>
+        <span class="project-tag">Assembler</span>
+      </div>
+      <h1 class="reveal" data-reveal="up">Cortex-VM</h1>
+      <p class="hero-subtitle reveal" data-reveal="up">A fast, extensible 64-bit virtual machine and assembler built as a compiler backend target.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="project-page-body">
+
+        <div class="project-meta-row reveal" data-reveal="up">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">VM</span>
+            <span class="project-tag">Assembler</span>
+            <span class="project-tag">ISA Design</span>
+          </div>
+          <a class="project-link" href="https://github.com/jonahmer22/cortex-vm" target="_blank" rel="noopener">
+            GitHub &rarr;
+          </a>
+          <a class="project-link" href="../blog/cortex-vm.html">
+            Blog Post &rarr;
+          </a>
+        </div>
+
+        <div class="stat-grid reveal" data-reveal="up">
+          <div class="stat-card">
+            <span class="stat-value">64-bit</span>
+            <span class="stat-label">word-addressed ISA</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">64</span>
+            <span class="stat-label">registers</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">~400M</span>
+            <span class="stat-label">instructions/sec</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">201</span>
+            <span class="stat-label">passing tests</span>
+          </div>
+        </div>
+
+        <h2 class="reveal" data-reveal="up">Overview</h2>
+        <p class="reveal" data-reveal="up">Cortex-VM is a 64-bit virtual machine and assembler I built from scratch in C as a dedicated backend target for Marrow-Lang. Rather than targeting LLVM or x86 directly, I designed the entire ISA myself &mdash; a decision that kept the full system understandable, made the calling convention compiler-friendly, and gave me complete control over every design tradeoff.</p>
+        <p class="reveal" data-reveal="up">The VM reaches around 400 million instructions per second at <code>-O3 -march=native</code> on modern hardware &mdash; roughly comparable to a Lua interpreter, and more than fast enough for a language runtime.</p>
+
+        <h2 class="reveal" data-reveal="up">Design Principles</h2>
+        <ul class="reveal" data-reveal="up">
+          <li><strong>Word addressing only.</strong> All registers and memory words are 64 bits. Offsets and addresses are word indices, not byte offsets. This eliminates alignment edge cases and makes code generation straightforward.</li>
+          <li><strong>No implicit side effects.</strong> No condition codes, no flags register, no hidden state outside the register file. Dataflow analysis is trivial.</li>
+          <li><strong>Flat calling convention.</strong> Up to 13 arguments and 13 return values pass in registers. No implicit stack frames, no hidden pointer arguments &mdash; easy to target from a compiler.</li>
+          <li><strong>Embeddable by design.</strong> Builds as a static library (<code>libcortex-vm.a</code>) with a three-function API from day one.</li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">The Register File</h2>
+        <p class="reveal" data-reveal="up">64 registers, each 64 bits wide. <code>r0</code> (zero) is hardwired. <code>r1</code>&ndash;<code>r3</code> are <code>pc</code>, <code>sp</code>, and <code>ra</code>. Fourteen callee-saved registers (<code>s0</code>&ndash;<code>s13</code>), fourteen argument/return registers (<code>a0</code>&ndash;<code>a13</code>), and thirty-two temporaries (<code>t0</code>&ndash;<code>t31</code>). Having 32 temporaries means register pressure is rarely the bottleneck for most function bodies.</p>
+
+        <h2 class="reveal" data-reveal="up">Instruction Set</h2>
+        <p class="reveal" data-reveal="up">All instructions are 64 bits wide. Seven base formats: R-type (register ALU), I-type (immediate ALU / jump), S-type (store), L-type (load), B-type (branch), and SYS (halt, syscall, nop, break). Calls and returns use a single <code>jmp</code> instruction that writes the return address into a register &mdash; no implicit link register behavior.</p>
+        <pre class="reveal" data-reveal="up"><code>jmp ra, zero, target    ; call — save return address in ra, jump to target
+jmp zero, ra, 0         ; return — jump to address in ra</code></pre>
+
+        <h2 class="reveal" data-reveal="up">Extensions</h2>
+        <p class="reveal" data-reveal="up">Two optional extensions, auto-detected by the assembler and flagged in the binary header:</p>
+        <ul class="reveal" data-reveal="up">
+          <li><strong>M extension</strong> &mdash; integer multiply/divide: <code>mul</code>, <code>mulh</code>, <code>div</code>, <code>divu</code>, <code>rem</code>, <code>remu</code> and their immediate variants. <code>mulh</code> produces the upper 64 bits of a 128-bit product via <code>__int128_t</code>.</li>
+          <li><strong>F extension</strong> &mdash; 64-bit IEEE 754 floats. Reuses the same register file (no separate FP registers). Adds arithmetic, conversion, and branch instructions. Float immediates in instructions are 32-bit single-precision, widened at execution.</li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">Assembler &amp; Disassembler</h2>
+        <p class="reveal" data-reveal="up">The assembler is single-pass with two-pass label resolution for forward references. It supports decimal, hex (<code>0xFF</code>), binary (<code>0b1010</code>), octal (<code>0o17</code>), and character literals. The <code>.data</code> section accepts strings, integers, and 64-bit float literals.</p>
+        <p class="reveal" data-reveal="up">The disassembler is a full round-trip tool: assemble a program, disassemble the binary, re-assemble, and get a functionally equivalent binary. 42 pytest tests verify this fidelity.</p>
+
+        <h2 class="reveal" data-reveal="up">Library API</h2>
+        <pre class="reveal" data-reveal="up"><code class="language-c">// Assemble source to binary, optionally write to file
+uint64_t *cortexAssemble(const char *source, const char *outputPath);
+
+// Assemble and execute immediately
+int cortexExecSource(const char *source);
+
+// Execute a pre-assembled binary
+int cortexExecBinary(const uint64_t *binary, size_t wordCount);</code></pre>
+        <p class="reveal" data-reveal="up">The compile-once-run-many workflow via <code>cortexAssemble</code> was designed specifically for the Marrow-Lang compiler pipeline.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Jonah Merriam. Built with care.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

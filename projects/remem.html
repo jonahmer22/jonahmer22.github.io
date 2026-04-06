@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#09090b" />
+  <title>ReMem &mdash; Jonah Merriam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <nav>
+    <div class="container">
+      <a href="../" class="nav-brand">Jonah Merriam</a>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../blog/">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero hero-sm">
+    <div class="hero-content">
+      <div class="project-tags reveal" data-reveal="up" style="justify-content:center;">
+        <span class="project-tag">C</span>
+        <span class="project-tag">Memory</span>
+      </div>
+      <h1 class="reveal" data-reveal="up">ReMem</h1>
+      <p class="hero-subtitle reveal" data-reveal="up">A lightweight memory recycler and garbage collector for C, built for predictable performance without a runtime.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="project-page-body">
+
+        <div class="project-meta-row reveal" data-reveal="up">
+          <div class="project-tags">
+            <span class="project-tag">C</span>
+            <span class="project-tag">Memory</span>
+            <span class="project-tag">GC</span>
+            <span class="project-tag">v0.2.0</span>
+          </div>
+          <a class="project-link" href="https://github.com/jonahmer22/ReMem" target="_blank" rel="noopener">GitHub &rarr;</a>
+          <a class="project-link" href="../blog/remem.html">Blog Post &rarr;</a>
+        </div>
+
+        <div class="stat-grid reveal" data-reveal="up">
+          <div class="stat-card">
+            <span class="stat-value">O(1)</span>
+            <span class="stat-label">page lookups</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">1.39&times;</span>
+            <span class="stat-label">overhead vs malloc/free</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">8&ndash;9&times;</span>
+            <span class="stat-label">faster than Python (low-end HW)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">0</span>
+            <span class="stat-label">dependencies</span>
+          </div>
+        </div>
+
+        <h2 class="reveal" data-reveal="up">Overview</h2>
+        <p class="reveal" data-reveal="up">ReMem started as an experiment to see how far you can push higher-level memory conveniences without leaving C. Writing hobby kernels, interpreters, and ML primitives made it clear how much time gets sunk into manual allocation hygiene. ReMem is a tool that feels safe enough for prototypes yet light enough for systems projects &mdash; no runtime required.</p>
+
+        <h2 class="reveal" data-reveal="up">Design Goals</h2>
+        <ul class="reveal" data-reveal="up">
+          <li><strong>Compatibility first.</strong> No external dependencies. Works on Linux, macOS, Apple Silicon, and older x86 hardware without modification.</li>
+          <li><strong>Predictable performance.</strong> Allocations route through size-classed arenas and resolve in O(1). Freed pages are recycled rather than returning to the OS on every free.</li>
+          <li><strong>Drop-in ergonomics.</strong> The API mirrors <code>malloc</code>/<code>free</code>, so existing projects can adopt it incrementally with optional hooks for rooting GC-managed pointers.</li>
+        </ul>
+
+        <h2 class="reveal" data-reveal="up">How It Works</h2>
+        <p class="reveal" data-reveal="up">ReMem groups allocations into size classes, storing them inside arena-backed pages. When a block is freed, the collector marks it for reuse. Pages that drain completely are either cached in-memory or returned to the underlying arena depending on the <code>freeMemory</code> toggle. Page lookups &mdash; and the mapping from blocks back to their parent arenas &mdash; stay O(1) via dense indexing tables.</p>
+        <p class="reveal" data-reveal="up">Large allocations that don't fit within a standard page are shunted directly to the underlying arena and live until the GC is destroyed, keeping the hot path simple while covering edge cases.</p>
+
+        <h2 class="reveal" data-reveal="up">API</h2>
+        <pre class="reveal" data-reveal="up"><code class="language-c">int main(void) {
+    int stack_top;
+    // false = cache empty pages (faster); true = return to OS (lower RSS)
+    if (!gcInit(&stack_top, false)) return 1;
+
+    int *buffer = gcAlloc(sizeof(int) * 1024);
+    buffer[0] = 42;
+
+    gcCollect();         // manual collection trigger
+    gcDestroy();         // free everything
+    return 0;
+}</code></pre>
+
+        <h2 class="reveal" data-reveal="up">Performance</h2>
+        <p class="reveal" data-reveal="up">Benchmarked on an Apple M3 Pro and a low-power Intel N150 with a 16 GB workload. ReMem carries a ~1.39&times; constant overhead vs raw <code>malloc/free</code> on the M3 Pro &mdash; well within acceptable range for the safety and ergonomics it provides, and dramatically ahead of Python-level runtimes.</p>
+        <ul class="reveal" data-reveal="up">
+          <li><code>malloc/free</code>: ~2s (M3 Pro) / ~4s (Intel N150)</li>
+          <li>ReMem, pages cached: ~3s / ~19s &mdash; <strong>0.95&times; RSS</strong> vs baseline</li>
+          <li>ReMem, pages freed: ~3s / ~40s &mdash; <strong>0.94&times; RSS</strong></li>
+          <li>Python reference: ~38s / ~81s</li>
+        </ul>
+        <p class="reveal" data-reveal="up">Disabling page freeing (<code>freeMemory = false</code>) keeps the hot path fast at the cost of slightly higher RSS. On the M3 Pro, RSS actually ends up <em>lower</em> than a bare arena-only approach due to page recycling.</p>
+
+        <h2 class="reveal" data-reveal="up">Roadmap</h2>
+        <ul class="reveal" data-reveal="up">
+          <li><strong>Nursery</strong> &mdash; projected 1.5&ndash;5&times; speedup for short-lived allocation patterns</li>
+          <li><strong>Multithreading</strong> &mdash; per-thread arenas, lock-free hot path</li>
+          <li><strong>Instrumentation</strong> &mdash; real-time stats via <code>gcDebugPrintStats()</code> improvements</li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Jonah Merriam. Built with care.</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
