@@ -64,7 +64,7 @@ def render_inline(text: str) -> str:
         token = f"__LINK{len(placeholders)}__"
         label = render_inline(match.group(1))
         url = html.escape(match.group(2), quote=True)
-        placeholders[token] = f"<a href=\"{url}\" target=\"_blank\" rel=\"noopener\">{label}</a>"
+        placeholders[token] = f"<a href=\"{url}\">{label}</a>"
         return token
 
     text_with_tokens = LINK_RE.sub(link_repl, text)
@@ -161,17 +161,11 @@ def build_post(post: dict) -> None:
 
 
 def build_index(posts: list[dict]) -> None:
-    cards = []
-    for post in posts:
-        card = (
-            f"      <a class=\"card post-card\" href=\"{post['slug']}.html\">\n"
-            f"        <h3>{html.escape(post['title'])}</h3>\n"
-            f"        <p>{html.escape(post['summary'])}</p>\n"
-            f"        <p class=\"post-meta\">Published {post['date'].strftime('%B %d, %Y').replace(' 0', ' ')}</p>\n"
-            f"      </a>"
-        )
-        cards.append(card)
-    posts_markup = "\n".join(cards) if cards else "      <p>No posts yet. Check back soon!</p>"
+    items = [
+        f"<li><span class=\"meta\">{post['date'].isoformat()}</span> <a href=\"/blog/{post['slug']}.html\">{html.escape(post['title'])}</a></li>"
+        for post in posts
+    ]
+    posts_markup = "\n".join(items) if items else "<li>nothing yet</li>"
     index_html = INDEX_TEMPLATE.replace("{{ posts }}", posts_markup)
     (OUTPUT_DIR / "index.html").write_text(index_html, encoding="utf-8")
 

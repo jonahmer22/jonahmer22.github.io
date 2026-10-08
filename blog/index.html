@@ -1,102 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080808" />
-  <title>Jonah Merriam - Blog</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>blog - jonah merriam</title>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <nav class="site-nav">
-    <a href="../" class="nav-mark">JM_</a>
-    <ul class="nav-links">
-      <li><a href="../">home</a></li>
-      <li><a href="../blog/">blog</a></li>
-    </ul>
-  </nav>
-
-  <header class="hero hero-sm">
-    <div class="hero-content">
-      <h1 class="reveal" data-reveal="up">Writing &amp; Updates</h1>
-      <p class="hero-subtitle reveal" data-reveal="up">Thoughts on systems programming, tooling experiments, and the projects I'm building.</p>
-    </div>
-  </header>
-
-  <section id="learning">
-    <div class="container">
-      <h2 class="section-heading reveal" data-reveal="up">What I'm Learning Now</h2>
-      <div class="card reveal" data-reveal="scale">
-        <ul>
-          <li>Designing the Marrow-Lang compiler frontend and targeting Cortex-VM as the backend.</li>
-          <li>Profiling multithreaded arena designs to inform the next iteration of ReMem.</li>
-          <li>Compilers coursework focused on register allocation and IR optimization passes.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="posts">
-    <div class="container">
-      <h2 class="section-heading reveal" data-reveal="up">Latest Posts</h2>
-      <div class="posts-grid stagger-children">
-      <a class="card post-card" href="cortex-vm.html">
-        <h3>Cortex-VM: Designing a Compiler-Friendly 64-bit Virtual Machine</h3>
-        <p>A deep dive into the ISA design, calling conventions, and engineering decisions behind building a fast, extensible VM as a language compiler target.</p>
-        <p class="post-meta">Published April 5, 2026</p>
-      </a>
-      <a class="card post-card" href="lexi-lang.html">
-        <h3>Why Interpret Assembly?</h3>
-        <p>Why would I start another project just to interpret an infamously low-level language in a high-level manner?</p>
-        <p class="post-meta">Published September 26, 2025</p>
-      </a>
-      <a class="card post-card" href="site-refresh-2025.html">
-        <h3>Portfolio Refresh 2025</h3>
-        <p>Documenting the overhaul of jonahmerriam.net with a fresh layout, richer content sections, and a Markdown-powered blog.</p>
-        <p class="post-meta">Published September 19, 2025</p>
-      </a>
-      <a class="card post-card" href="remem.html">
-        <h3>ReMem Design Notes</h3>
-        <p>Designing a lightweight garbage collector and memory recycler that keeps C allocations predictable.</p>
-        <p class="post-meta">Published September 18, 2025</p>
-      </a>
-      <a class="card post-card" href="arena.html">
-        <h3>Arena Patterns in C</h3>
-        <p>Sharing how a lightweight shunting arena keeps my C projects fast and easy to reset.</p>
-        <p class="post-meta">Published September 7, 2025</p>
-      </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="notes">
-    <div class="container">
-      <h2 class="section-heading reveal" data-reveal="up">Quick Notes</h2>
-      <div class="card reveal" data-reveal="up">
-        <p>Drafting a post on benchmarking garbage collectors across low-power hardware.</p>
-      </div>
-      <div class="card reveal" data-reveal="up" style="margin-top:1rem;">
-        <p>Planning a write-up on building consistent build tooling for student-run projects.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="about-blog">
-    <div class="container">
-      <h2 class="section-heading reveal" data-reveal="up">Why a Blog?</h2>
-      <p class="reveal" data-reveal="up">This space gives me somewhere to unpack the technical choices behind my repos and track the experiments that don't yet deserve a full project page. Expect posts about systems programming, memory management, and the occasional learning note from school.</p>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <span>&copy; <span id="current-year"></span> Jonah Merriam</span>
-    <span class="footer-sep">&middot;</span>
-    <a href="../">home</a>
-  </footer>
-
-  <script src="../script.js"></script>
+<header><a href="/">jonah merriam</a> &middot; <nav><a href="/#projects">projects</a> &middot; <a href="/blog/">blog</a> &middot; <a href="/Resume.pdf">resume</a></nav></header>
+<main>
+<h1>blog</h1>
+<ul>
+<li><span class="meta">2026-04-05</span> <a href="/blog/cortex-vm.html">Cortex-VM: Designing a Compiler-Friendly 64-bit Virtual Machine</a></li>
+<li><span class="meta">2025-09-26</span> <a href="/blog/lexi-lang.html">Why Interpret Assembly?</a></li>
+<li><span class="meta">2025-09-19</span> <a href="/blog/site-refresh-2025.html">Portfolio Refresh 2025</a></li>
+<li><span class="meta">2025-09-18</span> <a href="/blog/remem.html">ReMem Design Notes</a></li>
+<li><span class="meta">2025-09-07</span> <a href="/blog/arena.html">Arena Patterns in C</a></li>
+</ul>
+</main>
+<footer>jonah merriam &middot; <span id="weight"></span></footer>
+<script src="/script.js"></script>
 </body>
 </html>

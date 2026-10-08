@@ -1,78 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080808" />
-  <title>Jonah Merriam - Blog</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>blog - jonah merriam</title>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <nav class="site-nav">
-    <a href="../" class="nav-mark">JM_</a>
-    <ul class="nav-links">
-      <li><a href="../">home</a></li>
-      <li><a href="../blog/">blog</a></li>
-    </ul>
-  </nav>
-
-  <header class="hero hero-sm">
-    <div class="hero-content">
-      <h1 class="reveal" data-reveal="up">Writing &amp; Updates</h1>
-      <p class="hero-subtitle reveal" data-reveal="up">Thoughts on systems programming, tooling experiments, and the projects I'm building.</p>
-    </div>
-  </header>
-
-  <section id="learning">
-    <div class="container">
-      <h2 class="section-heading reveal" data-reveal="up">What I'm Learning Now</h2>
-      <div class="card reveal" data-reveal="scale">
-        <ul>
-          <li>Designing the Marrow-Lang compiler frontend and targeting Cortex-VM as the backend.</li>
-          <li>Profiling multithreaded arena designs to inform the next iteration of ReMem.</li>
-          <li>Compilers coursework focused on register allocation and IR optimization passes.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="posts">
-    <div class="container">
-      <h2 class="section-heading reveal" data-reveal="up">Latest Posts</h2>
-      <div class="posts-grid stagger-children">
+<header><a href="/">jonah merriam</a> &middot; <nav><a href="/#projects">projects</a> &middot; <a href="/blog/">blog</a> &middot; <a href="/Resume.pdf">resume</a></nav></header>
+<main>
+<h1>blog</h1>
+<ul>
 {{ posts }}
-      </div>
-    </div>
-  </section>
-
-  <section id="notes">
-    <div class="container">
-      <h2 class="section-heading reveal" data-reveal="up">Quick Notes</h2>
-      <div class="card reveal" data-reveal="up">
-        <p>Drafting a post on benchmarking garbage collectors across low-power hardware.</p>
-      </div>
-      <div class="card reveal" data-reveal="up" style="margin-top:1rem;">
-        <p>Planning a write-up on building consistent build tooling for student-run projects.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="about-blog">
-    <div class="container">
-      <h2 class="section-heading reveal" data-reveal="up">Why a Blog?</h2>
-      <p class="reveal" data-reveal="up">This space gives me somewhere to unpack the technical choices behind my repos and track the experiments that don't yet deserve a full project page. Expect posts about systems programming, memory management, and the occasional learning note from school.</p>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <span>&copy; <span id="current-year"></span> Jonah Merriam</span>
-    <span class="footer-sep">&middot;</span>
-    <a href="../">home</a>
-  </footer>
-
-  <script src="../script.js"></script>
+</ul>
+</main>
+<footer>jonah merriam &middot; <span id="weight"></span></footer>
+<script src="/script.js"></script>
 </body>
 </html>

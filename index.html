@@ -1,301 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080808" />
-  <title>Jonah Merriam &mdash; Systems Programmer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jonah merriam</title>
+<meta name="description" content="Jonah Merriam. CS student at UConn. VMs, compilers, allocators, in C.">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<header><a href="/">jonah merriam</a> &middot; <nav><a href="/#projects">projects</a> &middot; <a href="/blog/">blog</a> &middot; <a href="/Resume.pdf">resume</a></nav></header>
+<main>
 
-  <nav class="site-nav">
-    <a href="/" class="nav-mark">JM_</a>
-    <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#skills">skills</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#education">education</a></li>
-      <li><a href="#contact">contact</a></li>
-    </ul>
-  </nav>
+<p>CS student at UConn (2027). I write C: virtual machines, allocators, interpreters, and the compiler that's meant to target them.</p>
+<p><a href="https://github.com/jonahmer22">github</a> &middot; <a href="https://linkedin.com/in/jonahmerriam/">linkedin</a> &middot; <a href="mailto:jonah@jonahmerriam.net">jonah@jonahmerriam.net</a></p>
 
-  <header class="hero" role="banner">
-    <div class="hero-name">
-      <h1>
-        <span class="hn-line">JONAH</span>
-        <span class="hn-line hn-push">MERRIAM</span>
-      </h1>
-    </div>
-    <div class="hero-rule" aria-hidden="true"></div>
-    <div class="hero-meta">
-      <span>systems programmer</span>
-      <span class="hero-dot" aria-hidden="true">&middot;</span>
-      <span>UConn CS</span>
-      <span class="hero-dot" aria-hidden="true">&middot;</span>
-      <span>2024 &mdash; 2027</span>
-    </div>
-    <p class="hero-tagline">building VMs, compilers, and languages from scratch.</p>
-    <div class="hero-actions">
-      <a href="Resume.pdf" download class="hact">resume &darr;</a>
-      <a href="blog/" class="hact">blog &rarr;</a>
-      <a href="https://github.com/jonahmer22" target="_blank" rel="noopener" class="hact">github &nearr;</a>
-      <a href="https://linkedin.com/in/jonahmerriam/" target="_blank" rel="noopener" class="hact">linkedin &nearr;</a>
-    </div>
-    <div class="hero-scroll" aria-hidden="true">scroll &darr;</div>
-  </header>
+<h2 id="projects">projects</h2>
+<ul>
+<li><a href="/projects/cortex-vm.html">cortex-vm</a> &mdash; 64-bit VM and assembler in C. Word-addressed ISA, 64 registers, optional M and F extensions, round-tripping disassembler, ~400M instr/s at -O3.</li>
+<li><a href="https://github.com/jonahmer22/forth">forth</a> &mdash; Forth 2012 Core interpreter. Switch-threaded bytecode VM on an arena, <code>CREATE</code>/<code>DOES&gt;</code>, <code>longjmp</code> exception recovery. In progress.</li>
+<li><a href="/projects/marrow-lang.html">marrow-lang</a> &mdash; compiled language with a hand-written recursive-descent parser, targeting cortex-vm. In progress.</li>
+<li><a href="/projects/remem.html">remem</a> &mdash; memory recycler / GC for C. Size-classed arenas, O(1) page lookup.</li>
+<li><a href="/projects/arena.html">arena</a> &mdash; dependency-free arena allocator for C.</li>
+<li><a href="/projects/cpu-simulation.html">cpu-simulation</a> &mdash; 8-bit CPU simulated in C and Python.</li>
+<li><a href="/projects/8bit-cpu.html">pure-quanta</a> &mdash; quantum computer simulator in C over a complex state vector.</li>
+<li><a href="/projects/ml-in-c.html">ml-in-c</a> &mdash; ML primitives in C. In progress.</li>
+</ul>
 
-  <main>
+<h2>writing</h2>
+<p><a href="/blog/">blog</a>. Design notes on the projects above.</p>
 
-    <section id="about">
-      <div class="section-wrap">
-        <div class="section-id">
-          <span class="snum">01</span>
-          <span class="stag">about</span>
-        </div>
-        <div class="section-content reveal" data-reveal="up">
-          <p class="lede">CS student at UConn who spends most of his time close to the metal &mdash; writing C, designing instruction sets, and building the tools that make other tools possible. Currently working on Cortex-VM, a 64-bit virtual machine and assembler written from scratch, and Marrow-Lang, a compiled language targeting it. I care about systems that are fast, predictable, and fully understood by the person who wrote them.</p>
-        </div>
-      </div>
-    </section>
+<h2>education</h2>
+<dl>
+<dt>2024&ndash;2027</dt><dd>B.S. Computer Science, University of Connecticut</dd>
+<dt>2020&ndash;2024</dt><dd>Torrington High School</dd>
+</dl>
 
-    <section id="skills">
-      <div class="section-wrap">
-        <div class="section-id">
-          <span class="snum">02</span>
-          <span class="stag">skills</span>
-        </div>
-        <div class="section-content">
-          <dl class="skill-table">
-            <div class="skill-row reveal" data-reveal="up">
-              <dt>C / C++ &middot; ASM</dt>
-              <dd>core languages for VMs, allocators, and systems tools</dd>
-            </div>
-            <div class="skill-row reveal" data-reveal="up">
-              <dt>Systems Programming</dt>
-              <dd>memory management, ISA design, bare-metal projects</dd>
-            </div>
-            <div class="skill-row reveal" data-reveal="up">
-              <dt>Compiler &amp; Language Design</dt>
-              <dd>assemblers, recursive-descent parsers, IR and code generation</dd>
-            </div>
-            <div class="skill-row reveal" data-reveal="up">
-              <dt>Verilog / HDL</dt>
-              <dd>8-bit CPU architecture and hardware design fundamentals</dd>
-            </div>
-            <div class="skill-row reveal" data-reveal="up">
-              <dt>Git &middot; CI/CD</dt>
-              <dd>version control, automated builds, collaborative workflows</dd>
-            </div>
-            <div class="skill-row reveal" data-reveal="up">
-              <dt>Python &middot; Lua</dt>
-              <dd>rapid prototyping and tooling for projects and demos</dd>
-            </div>
-            <div class="skill-row reveal" data-reveal="up">
-              <dt>pytest &middot; Test Engineering</dt>
-              <dd>201-test suite for Cortex-VM: ISA, extensions, syscalls, disassembler round-trips</dd>
-            </div>
-            <div class="skill-row reveal" data-reveal="up">
-              <dt>Language Implementation</dt>
-              <dd>Forth 2012 core compliance, switch-threaded bytecode VM, REPL design, interpreter architecture</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="section-wrap">
-        <div class="section-id">
-          <span class="snum">03</span>
-          <span class="stag">projects</span>
-        </div>
-        <div class="section-content">
-          <ol class="project-index" role="list">
-
-            <li class="pi-entry reveal" data-reveal="up">
-              <div class="pie-header">
-                <span class="pie-n">01</span>
-                <h3 class="pie-name">Cortex-VM</h3>
-                <span class="pie-status">complete</span>
-              </div>
-              <p class="pie-desc">Built a fast, extensible 64-bit virtual machine and assembler in C as a compiler backend target. Features a word-addressed ISA with 64 registers, optional M and F (IEEE&nbsp;754) extensions, a full disassembler with round-trip fidelity, and an embeddable library API. Reaches ~400M instructions/sec at -O3.</p>
-              <div class="pie-footer">
-                <span class="pie-tags">C &middot; VM &middot; Assembler</span>
-                <a href="projects/cortex-vm.html" class="pie-link">view &rarr;</a>
-              </div>
-            </li>
-
-            <li class="pi-entry pi-entry--wip reveal" data-reveal="up">
-              <div class="pie-header">
-                <span class="pie-n">02</span>
-                <h3 class="pie-name">Forth</h3>
-                <span class="pie-status pie-status--wip">in progress</span>
-              </div>
-              <p class="pie-desc">A Forth 2012 Core-compliant interpreter in C. Uses a switch-threaded bytecode VM backed by an arena allocator. Supports the full Core word set, multi-base number literals, file I/O, <code>CREATE</code>/<code>DOES&gt;</code>, exception recovery via <code>longjmp</code>, and 186 pytest tests covering arithmetic, control flow, and standard compliance.</p>
-              <div class="pie-footer">
-                <span class="pie-tags">C &middot; Forth &middot; Interpreter</span>
-                <a href="https://github.com/jonahmer22/forth" target="_blank" rel="noopener" class="pie-link">github &nearr;</a>
-              </div>
-            </li>
-
-            <li class="pi-entry reveal" data-reveal="up">
-              <div class="pie-header">
-                <span class="pie-n">03</span>
-                <h3 class="pie-name">ReMem</h3>
-                <span class="pie-status">complete</span>
-              </div>
-              <p class="pie-desc">Built a lightweight memory recycler and garbage collector for C that reuses freed blocks through size-classed arenas and O(1) page lookups to cut allocation overhead.</p>
-              <div class="pie-footer">
-                <span class="pie-tags">C &middot; Memory</span>
-                <a href="projects/remem.html" class="pie-link">view &rarr;</a>
-              </div>
-            </li>
-
-            <li class="pi-entry reveal" data-reveal="up">
-              <div class="pie-header">
-                <span class="pie-n">04</span>
-                <h3 class="pie-name">arena</h3>
-                <span class="pie-status">complete</span>
-              </div>
-              <p class="pie-desc">Published a no-dependency shunting arena for C with global and local APIs that enable fast sequential allocations while keeping memory management predictable.</p>
-              <div class="pie-footer">
-                <span class="pie-tags">C &middot; Allocator</span>
-                <a href="projects/arena.html" class="pie-link">view &rarr;</a>
-              </div>
-            </li>
-
-            <li class="pi-entry reveal" data-reveal="up">
-              <div class="pie-header">
-                <span class="pie-n">05</span>
-                <h3 class="pie-name">CPU Simulation</h3>
-                <span class="pie-status">complete</span>
-              </div>
-              <p class="pie-desc">An 8-bit LEG-like CPU simulated in both C and Python. Implements a full instruction set &mdash; ADD, SUB, AND, OR, NOT, MOV, IMMD, JMP_IF_ZERO &mdash; with 16 registers, 256-word program memory, and an interactive CLI.</p>
-              <div class="pie-footer">
-                <span class="pie-tags">C &middot; Python</span>
-                <a href="projects/cpu-simulation.html" class="pie-link">view &rarr;</a>
-              </div>
-            </li>
-
-            <li class="pi-entry reveal" data-reveal="up">
-              <div class="pie-header">
-                <span class="pie-n">06</span>
-                <h3 class="pie-name">Pure-Quanta</h3>
-                <span class="pie-status">complete</span>
-              </div>
-              <p class="pie-desc">A quantum computer simulator in pure C using state vectors of double-precision complex numbers. Implements Hadamard, Pauli-X/Y/Z, and CNOT gates as direct linear transformations over the 2<sup>n</sup>-amplitude state vector.</p>
-              <div class="pie-footer">
-                <span class="pie-tags">C &middot; Quantum</span>
-                <a href="projects/8bit-cpu.html" class="pie-link">view &rarr;</a>
-              </div>
-            </li>
-
-            <li class="pi-entry pi-entry--wip reveal" data-reveal="up">
-              <div class="pie-header">
-                <span class="pie-n">07</span>
-                <h3 class="pie-name">Marrow-Lang</h3>
-                <span class="pie-status pie-status--wip">in progress</span>
-              </div>
-              <p class="pie-desc">Designing and building a compiled language from scratch with a hand-rolled recursive-descent parser in C. Cortex-VM serves as the dedicated backend target, providing a compiler-friendly flat calling convention and predictable word-addressed memory model.</p>
-              <div class="pie-footer">
-                <span class="pie-tags">C &middot; Compiler &middot; Language</span>
-                <a href="projects/marrow-lang.html" class="pie-link">view &rarr;</a>
-              </div>
-            </li>
-
-            <li class="pi-entry pi-entry--wip reveal" data-reveal="up">
-              <div class="pie-header">
-                <span class="pie-n">08</span>
-                <h3 class="pie-name">ML in C</h3>
-                <span class="pie-status pie-status--wip">in progress</span>
-              </div>
-              <p class="pie-desc">Exploring machine-learning primitives implemented purely in C for maximal performance and portability.</p>
-              <div class="pie-footer">
-                <span class="pie-tags">C &middot; ML</span>
-                <a href="projects/ml-in-c.html" class="pie-link">view &rarr;</a>
-              </div>
-            </li>
-
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <section id="education">
-      <div class="section-wrap">
-        <div class="section-id">
-          <span class="snum">04</span>
-          <span class="stag">education</span>
-        </div>
-        <div class="section-content">
-          <div class="edu-list">
-            <div class="edu-entry reveal" data-reveal="up">
-              <div class="edu-years">2024 &mdash; 2027</div>
-              <div class="edu-detail">
-                <h3>University of Connecticut</h3>
-                <p>B.S. Computer Science &middot; Storrs, CT</p>
-              </div>
-            </div>
-            <div class="edu-entry reveal" data-reveal="up">
-              <div class="edu-years">2020 &mdash; 2024</div>
-              <div class="edu-detail">
-                <h3>Torrington High School</h3>
-                <p>High School Diploma &middot; Torrington, CT</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="awards-block">
-            <p class="awards-heading">Awards</p>
-            <ul class="awards-entries">
-              <li class="reveal" data-reveal="up">
-                <span class="aw-year">2023</span>
-                <span class="aw-name">Rochester Institute of Technology Computing Award</span>
-              </li>
-              <li class="reveal" data-reveal="up">
-                <span class="aw-year">2022</span>
-                <span class="aw-name">M. Tracy Conway Exchange Club Award</span>
-              </li>
-              <li class="reveal" data-reveal="up">
-                <span class="aw-year">2020</span>
-                <span class="aw-name">President's Education Awards Program</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="section-wrap">
-        <div class="section-id">
-          <span class="snum">05</span>
-          <span class="stag">contact</span>
-        </div>
-        <div class="section-content reveal" data-reveal="up">
-          <p class="contact-line">Based in Torrington, Connecticut. Open to interesting conversations about systems programming, compilers, and low-level engineering.</p>
-          <div class="contact-links">
-            <a href="mailto:jonah@jonahmerriam.net" class="clink">jonah@jonahmerriam.net &nearr;</a>
-            <a href="https://github.com/jonahmer22" target="_blank" rel="noopener" class="clink">github &nearr;</a>
-            <a href="https://linkedin.com/in/jonahmerriam/" target="_blank" rel="noopener" class="clink">linkedin &nearr;</a>
-            <a href="Resume.pdf" download class="clink">resume &darr;</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <span>&copy; <span id="current-year"></span> Jonah Merriam</span>
-    <span class="footer-sep" aria-hidden="true">&middot;</span>
-    <a href="blog/">blog</a>
-  </footer>
-
-  <script src="script.js"></script>
+</main>
+<footer>jonah merriam &middot; torrington, ct &middot; <span id="weight"></span></footer>
+<script src="/script.js"></script>
 </body>
 </html>

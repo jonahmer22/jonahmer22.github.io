@@ -1,35 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080808" />
-  <title>Cortex-VM: Designing a Compiler-Friendly 64-bit Virtual Machine - Jonah Merriam</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cortex-VM: Designing a Compiler-Friendly 64-bit Virtual Machine - jonah merriam</title>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <nav class="site-nav">
-    <a href="../" class="nav-mark">JM_</a>
-    <ul class="nav-links">
-      <li><a href="../">home</a></li>
-      <li><a href="index.html">blog</a></li>
-    </ul>
-  </nav>
-
-  <header class="hero hero-sm">
-    <div class="hero-content">
-      <h1 class="reveal" data-reveal="up">Cortex-VM: Designing a Compiler-Friendly 64-bit Virtual Machine</h1>
-      <p class="hero-subtitle reveal" data-reveal="up">A deep dive into the ISA design, calling conventions, and engineering decisions behind building a fast, extensible VM as a language compiler target.</p>
-    </div>
-  </header>
-
-  <section class="post" id="content">
-    <div class="container">
-      <article class="post-body reveal" data-reveal="up">
-        <p class="post-meta">Published <span class="post-date">April 5, 2026</span></p>
+<header><a href="/">jonah merriam</a> &middot; <nav><a href="/#projects">projects</a> &middot; <a href="/blog/">blog</a> &middot; <a href="/Resume.pdf">resume</a></nav></header>
+<main>
+<h1>Cortex-VM: Designing a Compiler-Friendly 64-bit Virtual Machine</h1>
+<p class="meta">April 5, 2026</p>
 <h2>Why build a VM instead of targeting LLVM?</h2>
 
 <p>When I decided I wanted a real backend for my toy language project, the obvious answer was &quot;just target LLVM.&quot; LLVM is fantastic, but it comes with a significant complexity tax — learning the IR, the pass manager, and the quirks of the toolchain takes real time, and I wanted to stay close to the metal while keeping the whole system understandable. The other option was to target x86 directly, but then I&#x27;m writing a platform-specific backend and fighting calling conventions I didn&#x27;t design.</p>
@@ -137,16 +118,8 @@ int cortexExecBinary(const uint64_t *binary, size_t wordCount);</code></pre>
 <p>Cortex-VM is now at v0.5.0 with 201 passing tests across all instruction types, extensions, syscalls, memory operations, and the disassembler. The immediate goal is to build the language frontend on top of it — a compiler that targets Cortex-VM as its backend, replacing the earlier prototype work. The flat calling convention and predictable word-addressed memory model were designed with that compiler in mind from the start, so the next step feels like snapping two purpose-built pieces together.</p>
 
 <p>The VM itself still has room to grow: heap allocation support (the address space is already reserved), more syscalls, and eventually a bytecode optimization pass. But the core is solid, the spec is written, and the test suite keeps it honest.</p>
-      </article>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <span>&copy; <span id="current-year"></span> Jonah Merriam</span>
-    <span class="footer-sep">&middot;</span>
-    <a href="../">home</a>
-  </footer>
-
-  <script src="../script.js"></script>
+</main>
+<footer>jonah merriam &middot; <span id="weight"></span></footer>
+<script src="/script.js"></script>
 </body>
 </html>

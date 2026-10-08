@@ -5,8 +5,8 @@ This repository hosts my personal resume site that I publish through GitHub Page
 ## Stack
 
 - HTML for the structure and content
-- CSS for the layout, animations, and light/dark design tweaks
-- Vanilla JavaScript for small enhancements like smooth scrolling, skill bar animations, and scroll-based navigation highlighting
+- ~30 lines of CSS, system monospace font, automatic light/dark via `color-scheme`
+- ~25 lines of JS: prefetch on hover, and a footer that reports the page's measured transfer size
 
 ## Local Development
 
@@ -15,7 +15,7 @@ This repository hosts my personal resume site that I publish through GitHub Page
 3. Serve `index.html` with any static file server (for example `python3 -m http.server`).
 4. Open the page in your browser to preview changes.
 
-All of the styling lives in `style.css` and interactive behavior is handled in `script.js`.
+Styling is `style.css`, behavior is `script.js`. No build step except the blog.
 
 ### Blog workflow
 
